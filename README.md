@@ -1,6 +1,6 @@
 
 ---
-### Deliverable 1 WEB PROJECT: Pollution Web 1.0
+### Deliverable 2 WEB PROJECT: Pollution Web 2.0
 
 ---
 
