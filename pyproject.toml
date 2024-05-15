@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "web1"
+version = "0.1.0"
+description = ""
+authors = ["Roberta Alina Mititelu, Ismael Benataya Serghini, Loana Rodrigues Morais, Myroslav Tatchyn, Jon Stegherr Llop"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+Django = "^5.0.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

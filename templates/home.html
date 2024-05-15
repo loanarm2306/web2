@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Contenido Home -->
+    <div class="row">
+      <div class="box">
+          <img id="image_plane" src="{% static 'images/plane.jpg' %}" alt="Plane">
+          <a href="plane">PLANE</a>
+      </div>
+      <div class="box">
+          <img id="image_boat" src="{% static 'images/boat.jpg' %}" alt="Boat">
+          <a href="boat">BOAT</a>
+      </div>
+      <div class="box">
+          <img id="image_train" src="{% static 'images/train.jpg' %}" alt="Train">
+          <a href="train">TRAIN</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="box">
+          <img id="image_subway" src="{% static 'images/subway.jpg' %}" alt="Subway">
+          <a href="subway">SUBWAY</a>
+      </div>
+      <div class="box">
+          <img id="image_car" src="{% static 'images/car/car.jpg' %}" alt="Car">
+          <a href="car">CAR</a>
+      </div>
+      <div class="box">
+          <img id="image_moto" src="{% static 'images/moto.jpg' %}" alt="Motorbike">
+          <a href="motorbike">MOTORBIKE</a>
+      </div>
+    </div>
+
+{% endblock %}
