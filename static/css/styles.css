@@ -322,3 +322,24 @@ box f:hover {
 .box f:active {
     background-color: #333377db; /* Color de fondo del botón cuando se hace clic */
 }
+
+.trip-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Establece el alto del contenedor al 100% del viewport */
+    background-color: #ffffff;
+}
+
+.trip-form-card {
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #333377db; /* Ajustamos el color del fondo */
+    color: white;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.trip-form {
+    margin-top: 20px;
+}
