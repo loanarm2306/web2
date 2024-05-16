@@ -1,34 +1,57 @@
 from django.db import models
 
-# This is an example of a model in Django so that you can see how you can define your own models :D
-# DON'T FORGET to run `python manage.py makemigrations` and `python manage.py migrate` after changing this file!!!
-
-
-class Transport(models.Model):
-    id_transport = models.CharField(max_length=100, unique=True)
+class Passengers(models.Model):
+    number = models.IntegerField()
 
     def __str__(self):
-        return self.identification
+        return str(self.number)
 
-class Passenger(models.Model):
-    num_identification = models.CharField(max_length=100, unique=True)
-
-    def __str__(self):
-        return self.num_identification
-
-class Ticket(models.Model):
-    num_ticket = models.CharField(max_length=100)
-    origin = models.CharField(max_length=100)
-    destination = models.CharField(max_length=100)
-    transport = models.ForeignKey(Transport, on_delete=models.CASCADE)
-    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
+class DeparturePoint(models.Model):
+    departure = models.CharField(max_length=3)
 
     def __str__(self):
-        return self.num_ticket
+        return self.departure
 
-class Pollution(models.Model):
-    pollution = models.FloatField()
-    transport = models.ForeignKey(Transport, on_delete=models.CASCADE)
+class ArrivalPoint(models.Model):
+    arrival = models.CharField(max_length=3)
 
     def __str__(self):
-        return f"{self.transport.id_transport} - Pollution Index: {self.pollution}"
+        return self.arrival
+
+class DepartureTime(models.Model):
+    time = models.TimeField()
+
+    def __str__(self):
+        return str(self.time)
+
+class ArrivalTime(models.Model):
+    time = models.TimeField()
+
+    def __str__(self):
+        return str(self.time)
+
+class Distance(models.Model):
+    kilometers = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return str(self.kilometers)
+
+class TransportId(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    def __str__(self):
+        return str(self.id)
+
+class TransportType(models.Model):
+    TYPES = (
+        ('plane', 'Plane'),
+        ('car', 'Car'),
+        ('train', 'Train'),
+        ('subway', 'Subway'),
+        ('motorbike', 'Motorbike'),
+        ('boat', 'Boat'),
+    )
+    type = models.CharField(max_length=20, choices=TYPES)
+
+    def __str__(self):
+        return self.type

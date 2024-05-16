@@ -29,5 +29,8 @@ urlpatterns = [
     path("boat/", TemplateView.as_view(template_name="transport/boat.html"), name="boat"),
     path("train/", TemplateView.as_view(template_name="transport/train.html"), name="train"),
     path("motorbike/", TemplateView.as_view(template_name="transport/motorbike.html"), name="motorbike"),
-    path("calculate/", TemplateView.as_view(template_name="calculate.html"), name="calculate")
+    path("calculate/", TemplateView.as_view(template_name="calculate.html"), name="calculate"),
+    path("resultplain/", TemplateView.as_view(template_name="resultplain.html"), name="resultplain"),
+    path('error/', TemplateView.as_view(template_name="error.html"), name='error_page')
 ]
+
