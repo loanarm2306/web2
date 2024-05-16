@@ -29,5 +29,5 @@ urlpatterns = [
     path("boat/", TemplateView.as_view(template_name="boat.html"), name="boat"),
     path("train/", TemplateView.as_view(template_name="train.html"), name="train"),
     path("motorbike/", TemplateView.as_view(template_name="motorbike.html"), name="motorbike"),
-
+    path("calculate/", TemplateView.as_view(template_name="calculate.html"), name="calculate")
 ]

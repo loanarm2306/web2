@@ -15,7 +15,7 @@
             <div class="nav-links">
                 <a href="../#">Home</a>
                 <div class="dropdown">
-                    <button id="transports_btn" class="dropbtn">Transportes</button>
+                    <button id="transports_btn" class="dropbtn">Transports</button>
                     <div class="dropdown-content">
                         <a href="../plane">Plane</a>
                         <a href="../boat">Boat</a>
@@ -25,6 +25,12 @@
                         <a href="../motorbike">Motorbike</a>
                     </div>
                 </div>
+                {% if user.is_authenticated %}
+                    <a action="{% url 'calculate' %}" method="post">
+                        {% csrf_token %}
+                        <button id="calculate_pollution">Calculate Pollution</button>
+                    </a>
+                {% endif %}
             </div>
             <div id="div_login_logout">
                 {% if user.is_authenticated %}
