@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="login-container">
+        <div class="card mt-5 login-card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Pollution Plain</h2>
+                <div class="pollution-data">
+                    <p>Carbon emitted: {{ estimate_data.carbon_g }} grams</p>
+                    <p>Carbon emitted: {{ estimate_data.carbon_lb }} pounds</p>
+                    <p>Carbon emitted: {{ estimate_data.carbon_kg }} kilograms</p>
+                    <p>Carbon emitted: {{ estimate_data.carbon_mt }} metric tons</p>
+                    <p>Distance: {{ estimate_data.distance_value }} kilometers</p>
+                    <!-- Agrega más campos según sea necesario -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
