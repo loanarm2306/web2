@@ -26,10 +26,10 @@
                     </div>
                 </div>
                 {% if user.is_authenticated %}
-                    <form action="{% url 'calculate' %}" method="post">
+                    <a href="{% url 'calculate' %}" method="post">
                         {% csrf_token %}
                         <button id="calculate_pollution">Calculate Pollution</button>
-                    </form>
+                    </a>
                 {% endif %}
             </div>
             <div id="div_login_logout">
