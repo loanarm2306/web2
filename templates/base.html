@@ -1,67 +1,67 @@
 {% load static %}
 
 <!DOCTYPE html>
-    <html>
-        <head>
-          <meta charset="utf-8">
-          <title>{% block title %}Pollution Web{% endblock %}</title>
-          <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-        </head>
-        <body>
-          <nav class="navbar">
-            <div class="logo">s
-                <img src="{% static 'images/logo.jpg'%}" alt="Logo">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Pollution Web{% endblock %}</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+        <img src="{% static 'images/logo.jpg'%}" alt="Logo">
+    </div>
+    <div class="nav-links">
+        <a href="../#">Home</a>
+        <div class="dropdown">
+            <button id="transports_btn" class="dropbtn">Transports</button>
+            <div class="dropdown-content">
+                <a href="../plane">Plane</a>
+                <a href="../boat">Boat</a>
+                <a href="../train">Train</a>
+                <a href="../subway">Subway</a>
+                <a href="../car">Car</a>
+                <a href="../motorbike">Motorbike</a>
             </div>
-            <div class="nav-links">
-                <a href="../#">Home</a>
-                <div class="dropdown">
-                    <button id="transports_btn" class="dropbtn">Transports</button>
-                    <div class="dropdown-content">
-                        <a href="../plane">Plane</a>
-                        <a href="../boat">Boat</a>
-                        <a href="../train">Train</a>
-                        <a href="../subway">Subway</a>
-                        <a href="../car">Car</a>
-                        <a href="../motorbike">Motorbike</a>
-                    </div>
-                </div>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'calculate' %}" method="post">
-                        {% csrf_token %}
-                        <button id="calculate_pollution">Calculate Pollution</button>
-                    </a>
-                {% endif %}
-            </div>
-            <div id="div_login_logout">
-                {% if user.is_authenticated %}
-                <div class="logout">
-                    <form action="{% url 'logout' %}" method="post"> <!-- We can add a form to log out here -->
-                      {% csrf_token %}
-                      <button id="logout_btn" type="submit"><img id="image_logout" src="{% static 'images/icon-logout.png' %}" alt="Logout"></button>
-                    </form>
-                </div>
-                {% else %}
-                <div class="login">
-                    <a href="{% url 'login' %}"><img id="image_login" src="{% static 'images/icon-user.png' %}" alt="Login"></a>
-                </div>
-                {% endif %}
-            </div>
-          </nav>
-          <main>
-            <div class="content">
-                {% block content %}
-                {% endblock %}
-            </div>
-          </main>
-          <footer>
-            <div class="copyright">
-                <p>&copy; 2024 - All rights reserved</p>
-            </div>
-            <div class="footer-links">
-                <a href="../#">Home</a>
-                <a href="../#">Transports</a>
-            </div>
-          </footer>
-        </body>
-    </html>
+        </div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'calculate' %}" method="post">
+                {% csrf_token %}
+                <button id="calculate_pollution">Calculate Pollution</button>
+            </a>
+        {% endif %}
+    </div>
+    <div id="div_login_logout">
+        {% if user.is_authenticated %}
+        <div class="logout">
+            <form action="{% url 'logout' %}" method="post"> <!-- We can add a form to log out here -->
+              {% csrf_token %}
+              <button id="logout_btn" type="submit"><img id="image_logout" src="{% static 'images/icon-logout.png' %}" alt="Logout"></button>
+            </form>
+        </div>
+        {% else %}
+        <div class="login">
+            <a href="{% url 'login' %}"><img id="image_login" src="{% static 'images/icon-user.png' %}" alt="Login"></a>
+        </div>
+        {% endif %}
+    </div>
+  </nav>
+  <main>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+  </main>
+  <footer>
+    <div class="copyright">
+        <p>&copy; 2024 - All rights reserved</p>
+    </div>
+    <div class="footer-links">
+        <a href="../#">Home</a>
+        <a href="../#">Transports</a>
+    </div>
+  </footer>
+</body>
+</html>
 </html>
