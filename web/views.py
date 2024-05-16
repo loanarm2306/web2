@@ -1,3 +1,7 @@
+from django.contrib.sites import requests
+from django.shortcuts import render
+from .models import Passengers, DeparturePoint, ArrivalPoint, DepartureTime, ArrivalTime, Distance, TransportId, TransportType
+
 def calculate_pollution_plain(request):
     if request.method == 'POST':
         transport_type = request.POST.get('transport_type')
@@ -30,9 +34,3 @@ def calculate_pollution_plain(request):
 
     else:
         return render(request, 'pollution_form.html')
-
-def success_page(request):
-    return render(request, 'success_page.html')
-
-def error_page(request):
-    return render(request, 'error_page.html')

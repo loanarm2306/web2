@@ -31,85 +31,175 @@
                     <input type="number" id="passengers" name="passengers"><br><br>
                 </div>
 
-                <!-- Resto de los detalles del transporte ocultos -->
                 <div id="car-details" style="display:none;">
-                    <!-- Detalles del coche -->
+                    <label for="distance">Distance Travelled (in kilometers):</label><br>
+                    <input type="number" id="distance" name="distance"><br><br>
+
+                    <label for="passengers">Number of Passengers:</label><br>
+                    <input type="number" id="passengers" name="passengers"><br><br>
+
+                    <label for="vehicle_model">Vehicle Model:</label><br>
+                    <input type="text" id="vehicle_model" name="vehicle_model"><br><br>
                 </div>
 
-                <!-- JavaScript para mostrar y ocultar los detalles del transporte -->
-                <script>
-                    function setDefaultForm() {
-                        document.getElementById('flight-details').style.display = 'block';
-                        document.getElementById('car-details').style.display = 'none';
-                        // Oculta los detalles de los otros tipos de transporte
-                    }
+                <div id="train-details" style="display:none;">
+                    <label for="departure_point">Departure Station:</label><br>
+                    <input type="text" id="departure_point" name="departure_point"><br><br>
 
-                    window.onload = setDefaultForm;
+                    <label for="arrival_point">Arrival Station:</label><br>
+                    <input type="text" id="arrival_point" name="arrival_point"><br><br>
 
-                    document.getElementById('transport_type').addEventListener('change', function() {
-                        var transportType = this.value;
-                        if (transportType === 'plane') {
-                            document.getElementById('flight-details').style.display = 'block';
-                            document.getElementById('car-details').style.display = 'none';
-                            // Oculta los detalles de los otros tipos de transporte
-                        } else if (transportType === 'car') {
-                            // Mostrar los detalles del coche y ocultar los demás
-                            document.getElementById('flight-details').style.display = 'none';
-                            document.getElementById('car-details').style.display = 'block';
-                            // Oculta los detalles de los otros tipos de transporte
-                        } else {
-                            // Oculta todos los detalles excepto los del avión y el coche
-                            document.getElementById('flight-details').style.display = 'none';
-                            document.getElementById('car-details').style.display = 'none';
-                            // Oculta los detalles de los otros tipos de transporte
-                        }
-                    });
+                    <label for="departure_time">Departure Time:</label><br>
+                    <input type="time" id="departure_time" name="departure_time"><br><br>
 
-                    document.getElementById('trip-form').addEventListener('submit', function(event) {
-                        event.preventDefault(); // Evita el envío del formulario por defecto
+                    <label for="arrival_time">Arrival Time:</label><br>
+                    <input type="time" id="arrival_time" name="arrival_time"><br><br>
 
-                        // Construir el objeto de datos para enviar a la API
-                        var formData = new FormData(this);
-                        var requestData = {
-                            "type": "flight",
-                            "passengers": formData.get("passengers"),
-                            "legs": [
-                                {"departure_airport": formData.get("departure_point"), "destination_airport": formData.get("arrival_point")},
-                                {"departure_airport": formData.get("arrival_point"), "destination_airport": formData.get("departure_point")}
-                            ]
-                        };
+                    <label for="passengers">Number of Passengers:</label><br>
+                    <input type="number" id="passengers" name="passengers"><br><br>
+                </div>
 
-                        // Realizar la solicitud a la API
-                        fetch("https://www.carboninterface.com/api/v1/estimates", {
-                            method: "POST",
-                            headers: {
-                                "Authorization": "Bearer fJqKwcr9wvNEdR6GgrOkg",
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(requestData)
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            // Imprimir los datos de contaminación por pantalla
-                            console.log(data);
-                            // Aquí puedes agregar el código para mostrar los datos en la interfaz de usuario
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                        });
-                    });
-                </script>
+                <div id="subway-details" style="display:none;">
+                    <label for="departure_point">Departure Station:</label><br>
+                    <input type="text" id="departure_point" name="departure_point"><br><br>
 
+                    <label for="arrival_point">Arrival Station:</label><br>
+                    <input type="text" id="arrival_point" name="arrival_point"><br><br>
 
-                    <a href="{% url 'resultplain' %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">Save Trip</button>
-                    </a>
+                    <label for="passengers">Number of Passengers:</label><br>
+                    <input type="number" id="passengers" name="passengers"><br><br>
+                </div>
 
+                <div id="motorbike-details" style="display:none;">
+                    <label for="distance">Distance Travelled (in kilometers):</label><br>
+                    <input type="number" id="distance" name="distance"><br><br>
+
+                    <label for="passengers">Number of Passengers:</label><br>
+                    <input type="number" id="passengers" name="passengers"><br><br>
+                </div>
+
+                <div id="boat-details" style="display:none;">
+                    <label for="departure_point">Departure Port:</label><br>
+                    <input type="text" id="departure_point" name="departure_point"><br><br>
+
+                    <label for="arrival_point">Arrival Port:</label><br>
+                    <input type="text" id="arrival_point" name="arrival_point"><br><br>
+
+                    <label for="passengers">Number of Passengers:</label><br>
+                    <input type="number" id="passengers" name="passengers"><br><br>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Save Trip</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<!-- JavaScript para mostrar y ocultar los detalles del transporte -->
+<script>
+    function setDefaultForm() {
+        document.getElementById('flight-details').style.display = 'block';
+        document.getElementById('car-details').style.display = 'none';
+        document.getElementById('train-details').style.display = 'none';
+        document.getElementById('subway-details').style.display = 'none';
+        document.getElementById('motorbike-details').style.display = 'none';
+        document.getElementById('boat-details').style.display = 'none';
+    }
+
+    window.onload = setDefaultForm;
+
+    document.getElementById('transport_type').addEventListener('change', function() {
+        var transportType = this.value;
+        if (transportType === 'plane') {
+            document.getElementById('flight-details').style.display = 'block';
+            document.getElementById('car-details').style.display = 'none';
+            document.getElementById('train-details').style.display = 'none';
+            document.getElementById('subway-details').style.display = 'none';
+            document.getElementById('motorbike-details').style.display = 'none';
+            document.getElementById('boat-details').style.display = 'none';
+        } else if (transportType === 'car') {
+            document.getElementById('flight-details').style.display = 'none';
+            document.getElementById('car-details').style.display = 'block';
+            document.getElementById('train-details').style.display = 'none';
+            document.getElementById('subway-details').style.display = 'none';
+            document.getElementById('motorbike-details').style.display = 'none';
+            document.getElementById('boat-details').style.display = 'none';
+        } else if (transportType === 'train') {
+            document.getElementById('flight-details').style.display = 'none';
+            document.getElementById('car-details').style.display = 'none';
+            document.getElementById('train-details').style.display = 'block';
+            document.getElementById('subway-details').style.display = 'none';
+            document.getElementById('motorbike-details').style.display = 'none';
+            document.getElementById('boat-details').style.display = 'none';
+        } else if (transportType === 'subway') {
+            document.getElementById('flight-details').style.display = 'none';
+            document.getElementById('car-details').style.display = 'none';
+            document.getElementById('train-details').style.display = 'none';
+            document.getElementById('subway-details').style.display = 'block';
+            document.getElementById('motorbike-details').style.display = 'none';
+            document.getElementById('boat-details').style.display = 'none';
+        } else if (transportType === 'motorbike') {
+            document.getElementById('flight-details').style.display = 'none';
+            document.getElementById('car-details').style.display = 'none';
+            document.getElementById('train-details').style.display = 'none';
+            document.getElementById('subway-details').style.display = 'none';
+            document.getElementById('motorbike-details').style.display = 'block';
+            document.getElementById('boat-details').style.display = 'none';
+        } else if (transportType === 'boat') {
+            document.getElementById('flight-details').style.display = 'none';
+            document.getElementById('car-details').style.display = 'none';
+            document.getElementById('train-details').style.display = 'none';
+            document.getElementById('subway-details').style.display = 'none';
+            document.getElementById('motorbike-details').style.display = 'none';
+            document.getElementById('boat-details').style.display = 'block';
+        } else {
+            // En caso de que no se seleccione ningún tipo de transporte
+            document.getElementById('flight-details').style.display = 'none';
+            document.getElementById('car-details').style.display = 'none';
+            document.getElementById('train-details').style.display = 'none';
+            document.getElementById('subway-details').style.display = 'none';
+            document.getElementById('motorbike-details').style.display = 'none';
+            document.getElementById('boat-details').style.display = 'none';
+        }
+    });
+
+    document.getElementById('trip-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita el envío del formulario por defecto
+
+        // Construir el objeto de datos para enviar a la API
+        var formData = new FormData(this);
+        var requestData = {
+            "type": "flight",
+            "passengers": formData.get("passengers"),
+            "legs": [
+                {"departure_airport": formData.get("departure_point"), "destination_airport": formData.get("arrival_point")},
+                {"departure_airport": formData.get("arrival_point"), "destination_airport": formData.get("departure_point")}
+            ]
+        };
+
+        // Realizar la solicitud a la API
+        fetch("https://www.carboninterface.com/api/v1/estimates", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer fJqKwcr9wvNEdR6GgrOkg",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Imprimir los datos de contaminación por pantalla
+            console.log(data);
+            window.location.pathname="resultplain"
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+</script>
+
+<button type="submit" class="btn btn-primary">Save Trip</button>
 
 {% endblock %}
