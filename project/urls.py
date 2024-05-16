@@ -33,3 +33,4 @@ urlpatterns = [
     path("resultplain/", TemplateView.as_view(template_name="resultplain.html"), name="resultplain"),
     path('error/', TemplateView.as_view(template_name="error.html"), name='error_page')
 ]
+
