@@ -1,25 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;700&display=swap');
+
+:root{
+--color: #333;
+}
+
 body {
-    font-family: 'Arial Black', sans-serif;
+    font-family: 'Red Hat Text', sans-serif;
     margin: 0;
     padding: 0;
 }
 
 /* Barra de navegación */
 .navbar {
-    background-color: #333377db;
+    background-color: #2D3142;
     color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 0.4vh 2vw;
 }
 
 .logo img {
-    width: 50px;
+    width: 3vw;
 }
 
 #div_login_logout {
-    width: 100px;
+    width: 3vw;
     display: flex;
     flex-direction: row;
     align-content: space-between;
@@ -113,10 +119,7 @@ body {
     display: flex;
     justify-content: center; /* Alinea el contenido horizontalmente */
     flex-direction: column;
-    padding: 20px;
-    width: 95%;
-    min-height: 70vh;
-    margin: auto;
+    width: 100%;
 }
 
 /* Footer */
@@ -140,65 +143,24 @@ footer {
     text-align: end;
 }
 
-.row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
 
-.box {
-    width: 25%;
-    height: auto;
-    background-color: #33337740;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
 
-#image_plane {
-    width: 60%;
-    margin: auto;
-}
-
-#image_train {
-    width: 60%;
-    margin: auto;
-}
-
-#image_moto {
-    width: 60%;
-    margin: auto;
-}
-
-#image_subway {
-    width: 60%;
-    margin: auto;
-}
-
-#image_car {
-    width: 60%;
-    margin: auto;
-}
-
-#image_boat {
-    width: 60%;
-    margin: auto;
-}
-
-.box a {
-    text-align: center;
-    display: flex;
-}
 
 .box a {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: #337; /* Color de fondo del botón */
-    color: #fff; /* Color del texto del botón */
+    padding: 1em 3.5em;
+    background-color: var(--color);
+    color: white;
     text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    border-radius: 0.3em;
+    font-weight: 700;
+    letter-spacing: .5px;
+    font-size: .875rem;
+
 }
+
+
 
 box a:hover {
     background-color: #337; /* Color de fondo del botón al pasar el cursor */
