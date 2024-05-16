@@ -2,35 +2,60 @@
 {% load static %}
 
 {% block content %}
-
+    <head>
+      <meta charset="utf-8">
+      <title>{% block title %}Pollution Web{% endblock %}</title>
+      <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    </head>
     <!-- Contenido Home -->
-    <div class="row">
-      <div class="box">
-          <img id="image_plane" src="{% static 'images/plane.jpg' %}" alt="Plane">
-          <a href="plane">PLANE</a>
-      </div>
-      <div class="box">
-          <img id="image_boat" src="{% static 'images/boat.jpg' %}" alt="Boat">
-          <a href="boat">BOAT</a>
-      </div>
-      <div class="box">
-          <img id="image_train" src="{% static 'images/train.jpg' %}" alt="Train">
-          <a href="train">TRAIN</a>
-      </div>
-    </div>
-    <div class="row">
-      <div class="box">
-          <img id="image_subway" src="{% static 'images/subway.jpg' %}" alt="Subway">
-          <a href="subway">SUBWAY</a>
-      </div>
-      <div class="box">
-          <img id="image_car" src="{% static 'images/car/car.jpg' %}" alt="Car">
-          <a href="car">CAR</a>
-      </div>
-      <div class="box">
-          <img id="image_moto" src="{% static 'images/moto.jpg' %}" alt="Motorbike">
-          <a href="motorbike">MOTORBIKE</a>
-      </div>
+    <div class="container">
+      <h1>Pollution</h1>
+      <p>CO2 pollution, stemming from activities like burning fossil fuels and deforestation, contributes to global warming and climate change. It poses health risks and environmental challenges, urging the need for sustainable solutions.</p>
     </div>
 
+    <div class="blank"></div>
+
+    <div class ="container second">
+        <div class="row">
+          <div class="box">
+              <img id="image_h" src="{% static 'images/plane/plane.jpg' %}" alt="Plane">
+              <div class="card">
+                <a href="plane">PLANE</a>
+              </div>
+          </div>
+          <div class="box">
+              <img id="image_h" src="{% static 'images/boat/boat.jpg' %}" alt="Boat">
+              <div class="card">
+                <a href="boat">BOAT</a>
+              </div>
+          </div>
+          <div class="box">
+              <img id="image_h" src="{% static 'images/train/train.jpg' %}" alt="Train">
+              <div class="card">
+                <a href="train">TRAIN</a>
+              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="box">
+              <img id="image_h" src="{% static 'images/subway/subway.jpg' %}" alt="Subway">
+              <div class="card">
+                <a href="subway">SUBWAY</a>
+              </div>
+          </div>
+          <div class="box">
+              <img id="image_h" src="{% static 'images/car/car.jpg' %}" alt="Car">
+              <div class="card">
+                <a href="transport">CAR</a>
+              </div>
+          </div>
+          <div class="box">
+              <img id="image_h" src="{% static 'images/moto/moto.jpg' %}" alt="Motorbike">
+              <div class="card">
+                <a href="motorbike">MOTORBIKE</a>
+              </div>
+          </div>
+        </div>
+    </div>
 {% endblock %}

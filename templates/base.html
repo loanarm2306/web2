@@ -5,12 +5,13 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Pollution Web{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/nav_bar.css' %}">
 </head>
+
 <body>
   <nav class="navbar">
     <div class="logo">
-        <img src="{% static 'images/logo.jpg'%}" alt="Logo">
+        <img src="{% static 'images/icons/logo_plane.png' %}" alt="Logo">
     </div>
     <div class="nav-links">
         <a href="../#">Home</a>
@@ -37,16 +38,18 @@
         <div class="logout">
             <form action="{% url 'logout' %}" method="post"> <!-- We can add a form to log out here -->
               {% csrf_token %}
-              <button id="logout_btn" type="submit"><img id="image_logout" src="{% static 'images/icon-logout.png' %}" alt="Logout"></button>
+              <button id="logout_btn" type="submit"><img id="image_logout" src="{% static 'images/icons/icon-logout.png' %}" alt="Logout"></button>
             </form>
         </div>
         {% else %}
         <div class="login">
-            <a href="{% url 'login' %}"><img id="image_login" src="{% static 'images/icon-user.png' %}" alt="Login"></a>
+            <a href="{% url 'login' %}"><img id="image_login" src="{% static 'images/icons/icon-user.png' %}" alt="Login"></a>
         </div>
         {% endif %}
     </div>
   </nav>
+
+
   <main>
     <div class="content">
         {% block content %}
