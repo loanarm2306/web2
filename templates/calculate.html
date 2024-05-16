@@ -1,12 +1,40 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Calculate Pollution{% endblock %}
+
 {% block content %}
+    <h1>Trip Form</h1>
+    <form action="/save_trip" method="POST">
+        {% csrf_token %}
+        <label for="transport_type">Transport Type:</label><br>
+        <select name="transport_type" id="transport_type">
+            <option value="plane">Plane</option>
+            <option value="train">Train</option>
+            <option value="car">Car</option>
+            <option value="subway">Subway</option>
+            <option value="motorbike">Motorbike</option>
+            <option value="boat">Boat</option>
+        </select><br><br>
 
-    <body>
+        <label for="departure_point">Departure Point:</label><br>
+        <input type="text" id="departure_point" name="departure_point" required><br><br>
 
-    <h1>Calculate Pollution</h1>
+        <label for="arrival_point">Arrival Point:</label><br>
+        <input type="text" id="arrival_point" name="arrival_point" required><br><br>
 
-    </body>
+        <label for="departure_time">Departure Time:</label><br>
+        <input type="time" id="departure_time" name="departure_time" required><br><br>
 
+        <label for="arrival_time">Arrival Time:</label><br>
+        <input type="time" id="arrival_time" name="arrival_time" required><br><br>
+
+        <label for="distance">Distance Travelled (in kilometers):</label><br>
+        <input type="number" id="distance" name="distance" required><br><br>
+
+        <label for="passengers">Number of Passengers:</label><br>
+        <input type="number" id="passengers" name="passengers" required><br><br>
+
+        <input type="submit" value="Save Trip">
+    </form>
 {% endblock %}
