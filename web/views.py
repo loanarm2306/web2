@@ -1,15 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import PollutionResult
-from django.http import HttpResponse
 import requests
 
 
 def calculate_pollution_plain(request):
     if request.method == 'POST':
         transport_type = request.POST.get('transport_type')
-        passengers = int(request.POST.get('passengers'))
+        passengers = request.POST.get('passengers')
         departure_point = request.POST.get('departure_point')
         arrival_point = request.POST.get('arrival_point')
+        carbon_emission = request.POST.get('carbon_emission')
 
         api_url = "https://www.carboninterface.com/api/v1/estimates"
         headers = {
@@ -179,6 +179,7 @@ def calculate_pollution_boat(request):
         return render(request, 'calculate.html')
 
 
+
 def results_list(request):
     results = PollutionResult.objects.all()
     return render(request, 'results.html', {'results': results})
@@ -191,7 +192,7 @@ def edit_result_plain(request, result_id):
         result.departure_point = request.POST.get('departure_point')
         result.arrival_point = request.POST.get('arrival_point')
         result.save()
-        return redirect('results_list')
+        return redirect('results')
     return render(request, 'edit_result.html', {'result': result})
 
 
@@ -199,5 +200,5 @@ def delete_result(request, result_id):
     result = get_object_or_404(PollutionResult, pk=result_id)
     if request.method == 'POST':
         result.delete()
-        return redirect('results_list')
+        return redirect('results')
     return render(request, 'confirm_delete.html', {'result': result})
