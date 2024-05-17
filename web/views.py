@@ -34,7 +34,6 @@ def calculate_pollution_plain(request):
                 passengers=passengers,
                 departure_point=departure_point,
                 arrival_point=arrival_point,
-                distance=0,
                 carbon_emission=carbon_emission
             )
 
