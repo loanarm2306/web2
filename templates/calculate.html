@@ -94,6 +94,7 @@
                 </div>
             </form>
         </div>
+        <div id="result-container"></div>
     </div>
 </div>
 
@@ -190,9 +191,10 @@
         })
         .then(response => response.json())
         .then(data => {
-            // Imprimir los datos de contaminación por pantalla
             console.log(data);
-            window.location.pathname="resultplain"
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.innerHTML = `<p>CO2 emissions: ${data.data.attributes.carbon_g}</p>`;
+            window.location.pathname = "resultplain";
         })
         .catch(error => {
             console.error("Error:", error);
