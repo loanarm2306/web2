@@ -160,6 +160,11 @@
     function deleteRow(button) {
         const row = button.closest('tr');
         row.remove();
+        localStorage.removeItem('transportType');
+        localStorage.removeItem('passengers');
+        localStorage.removeItem('departurePoint');
+        localStorage.removeItem('arrivalPoint');
+        localStorage.removeItem('carbonEmission');
     }
 
     // Agregar la primera fila con los atributos comunes si los datos no son "N/A"

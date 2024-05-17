@@ -190,7 +190,7 @@
             fetch("https://www.carboninterface.com/api/v1/estimates", {
                 method: "POST",
                 headers: {
-                    "Authorization": "Bearer fJqKwcr9wvNEdR6GgrOkg",
+                    "Authorization": "Bearer Kjd6ggkR8x8KkftIe3SPQ",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(requestData)
@@ -203,11 +203,16 @@
 
                     document.getElementById('save-button-container').style.display = 'block';
 
-                    document.getElementById('hidden-transport-type').value = transportType;
-                    document.getElementById('hidden-passengers').value = formData.get("passengers");
-                    document.getElementById('hidden-departure-point').value = formData.get("departure_point");
-                    document.getElementById('hidden-arrival-point').value = formData.get("arrival_point");
-                    document.getElementById('hidden-carbon-emission').value = data.data.attributes.carbon_g;
+                    //document.getElementById('hidden-transport-type').value = transportType;
+                    //document.getElementById('hidden-passengers').value = formData.get("passengers");
+                    //document.getElementById('hidden-departure-point').value = formData.get("departure_point");
+                    //document.getElementById('hidden-arrival-point').value = formData.get("arrival_point");
+                    //document.getElementById('hidden-carbon-emission').value = data.data.attributes.carbon_g;
+                    localStorage.setItem('transportType', "flight"); // Assuming transportType is always "flight" in this context
+                    localStorage.setItem('passengers', formData.get("passengers"));
+                    localStorage.setItem('departurePoint', formData.get("departure_point"));
+                    localStorage.setItem('arrivalPoint', formData.get("arrival_point"));
+                    localStorage.setItem('carbonEmission', data.data.attributes.carbon_g);
                     window.location.pathname = "results";
 
                 })
