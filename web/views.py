@@ -46,6 +46,30 @@ def calculate_pollution_plain(request):
         return render(request, 'results.html')
 
 
+def calculate_pollution_car(request):
+    if request.method == 'POST':
+        transport_type = request.POST.get('transport_type')
+        departure_point = request.POST.get('departure_point')
+        arrival_point = request.POST.get('arrival_point')
+        distance_travelled = int(request.POST.get('distance_travelled'))
+        passengers = int(request.POST.get('passengers'))
+
+        emission_per_km = 120
+        total_emission = emission_per_km * distance_travelled * passengers
+
+        result = PollutionResult.objects.create(
+            transport_type=transport_type,
+            passengers=passengers,
+            departure_point=departure_point,
+            arrival_point=arrival_point,
+            carbon_emission=total_emission
+        )
+
+        return render(request, 'results.html', {'estimate_data': {'carbon_g': total_emission}})
+    else:
+        return render(request, 'results.html')
+
+
 def calculate_pollution_train(request):
     if request.method == 'POST':
         transport_type = request.POST.get('transport_type')
@@ -177,7 +201,6 @@ def calculate_pollution_boat(request):
 
     else:
         return render(request, 'calculate.html')
-
 
 
 def results_list(request):
