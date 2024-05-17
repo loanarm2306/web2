@@ -203,16 +203,27 @@
 
                     document.getElementById('save-button-container').style.display = 'block';
 
-                    //document.getElementById('hidden-transport-type').value = transportType;
-                    //document.getElementById('hidden-passengers').value = formData.get("passengers");
-                    //document.getElementById('hidden-departure-point').value = formData.get("departure_point");
-                    //document.getElementById('hidden-arrival-point').value = formData.get("arrival_point");
-                    //document.getElementById('hidden-carbon-emission').value = data.data.attributes.carbon_g;
-                    localStorage.setItem('transportType', "flight"); // Assuming transportType is always "flight" in this context
-                    localStorage.setItem('passengers', formData.get("passengers"));
-                    localStorage.setItem('departurePoint', formData.get("departure_point"));
-                    localStorage.setItem('arrivalPoint', formData.get("arrival_point"));
-                    localStorage.setItem('carbonEmission', data.data.attributes.carbon_g);
+
+                    //localStorage.setItem('transportType', "flight"); // Assuming transportType is always "flight" in this context
+                    //localStorage.setItem('passengers', formData.get("passengers"));
+                    //localStorage.setItem('departurePoint', formData.get("departure_point"));
+                    //localStorage.setItem('arrivalPoint', formData.get("arrival_point"));
+                    //localStorage.setItem('carbonEmission', data.data.attributes.carbon_g);
+                    // Get existing trips from localStorage or initialize a new array
+
+                    const trips = JSON.parse(localStorage.getItem('trips')) || [];
+                    // Create a new trip object
+                    const newTrip = {
+                        transportType: "flight", // Assuming transportType is always "flight" in this context
+                        passengers: formData.get("passengers"),
+                        departurePoint: formData.get("departure_point"),
+                        arrivalPoint: formData.get("arrival_point"),
+                        carbonEmission: data.data.attributes.carbon_g
+                    };
+
+                    trips.push(newTrip);
+                    localStorage.setItem('trips', JSON.stringify(trips));
+
                     window.location.pathname = "results";
 
                 })
