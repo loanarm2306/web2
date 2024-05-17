@@ -120,7 +120,7 @@ def calculate_pollution_subway(request):
             'Station2-Station3': 7
         }
 
-        distance_key = f'{departure_point}-{arrival_point}'
+        distance_key = f'{departure_station}-{arrival_station}'
         distance = distances.get(distance_key, 0)
 
         if distance == 0:
