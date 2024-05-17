@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="login-container">
+        <div class="card mt-5 login-card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Delete Pollution Result</h2>
+                <p>Are you sure you want to delete this result?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                    <a href="{% url 'results_list' %}">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

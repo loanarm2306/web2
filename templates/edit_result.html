@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="login-container">
+        <div class="card mt-5 login-card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Edit Pollution Result</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <label for="transport_type">Transport Type:</label>
+                    <input type="text" id="transport_type" name="transport_type" value="{{ result.transport_type }}"><br>
+                    <label for="passengers">Passengers:</label>
+                    <input type="number" id="passengers" name="passengers" value="{{ result.passengers }}"><br>
+                    <label for="departure_point">Departure Point:</label>
+                    <input type="text" id="departure_point" name="departure_point" value="{{ result.departure_point }}"><br>
+                    <label for="arrival_point">Arrival Point:</label>
+                    <input type="text" id="arrival_point" name="arrival_point" value="{{ result.arrival_point }}"><br>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

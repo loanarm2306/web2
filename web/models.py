@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Passengers(models.Model):
     number = models.IntegerField()
@@ -55,3 +56,14 @@ class TransportType(models.Model):
 
     def __str__(self):
         return self.type
+
+class PollutionResult(models.Model):
+    transport_type = models.CharField(max_length=50)
+    passengers = models.IntegerField()
+    departure_point = models.CharField(max_length=100)
+    arrival_point = models.CharField(max_length=100)
+    departure_time = models.CharField(max_length=10)
+    arrival_time = models.CharField(max_length=10)
+    distance = models.FloatField()
+    carbon_emission = models.FloatField()
+    date = models.DateTimeField(auto_now_add=True)

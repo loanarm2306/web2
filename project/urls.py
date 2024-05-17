@@ -30,10 +30,13 @@ urlpatterns = [
     path("train/", TemplateView.as_view(template_name="transport/train.html"), name="train"),
     path("motorbike/", TemplateView.as_view(template_name="transport/motorbike.html"), name="motorbike"),
     path("calculate/", TemplateView.as_view(template_name="calculate.html"), name="calculate"),
-    path("resultplain/", TemplateView.as_view(template_name="resultplain.html"), name="resultplain"),
-    path("resultBoat/", TemplateView.as_view(template_name="resultBoat.html"), name="resultBoat"),
-    path("resultMotorbike/", TemplateView.as_view(template_name="resultMotorbike.html"), name="resultMotorbike"),
-    path("resultSubway/", TemplateView.as_view(template_name="resultSubway.html"), name="resultSubway"),
-    path("resultTrain/", TemplateView.as_view(template_name="resultTrain.html"), name="resultTrain"),
-    path('error/', TemplateView.as_view(template_name="error.html"), name='error_page')
+    path("resultcar/", TemplateView.as_view(template_name="resultcar.html"), name="resultcar"),
+    path("resultboat/", TemplateView.as_view(template_name="resultboat.html"), name="resultBoat"),
+    path("resultmotorbike/", TemplateView.as_view(template_name="resultmotorbike.html"), name="resultMotorbike"),
+    path("resultsubway/", TemplateView.as_view(template_name="resultsubway.html"), name="resultSubway"),
+    path("resulttrain/", TemplateView.as_view(template_name="resulttrain.html"), name="resultTrain"),
+    path('error/', TemplateView.as_view(template_name="error.html"), name='error_page'),
+    path('results/', TemplateView.as_view(template_name="results.html"), name='results'),
+    path('results/edit/', TemplateView.as_view(template_name="edit_result.html"), name='edit_result'),
+    path('results/delete/', TemplateView.as_view(template_name="confirm_delete.html"), name='confirm_delete')
 ]
