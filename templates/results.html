@@ -86,33 +86,29 @@
 
 <script>
     // Recuperar datos de localStorage y verificar que no sean null
-    const transportType = localStorage.getItem('transportType') || "N/A";
-    const passengers = localStorage.getItem('passengers') || "N/A";
-    const departurePoint = localStorage.getItem('departurePoint') || "N/A";
-    const arrivalPoint = localStorage.getItem('arrivalPoint') || "N/A";
-    const carbonEmission = localStorage.getItem('carbonEmission') || "N/A";
+    const trips = JSON.parse(localStorage.getItem('trips')) || [];
 
     // Función para agregar una nueva fila con los datos
-    function addRow() {
+    function addRow(trip, index) {
         const resultContainer = document.getElementById('result-container');
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-            <td>${transportType}</td>
-            <td>${passengers}</td>
-            <td>${departurePoint}</td>
-            <td>${arrivalPoint}</td>
-            <td>${carbonEmission !== "N/A" ? carbonEmission + " grams" : carbonEmission}</td>
+            <td>${trip.transportType || "N/A"}</td>
+            <td>${trip.passengers || "N/A"}</td>
+            <td>${trip.departurePoint || "N/A"}</td>
+            <td>${trip.arrivalPoint || "N/A"}</td>
+            <td>${trip.carbonEmission || "N/A"} grams</td>
             <td>
-                <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
-                <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
-                <button class="btn btn-save" onclick="saveRow(this)" style="display: none;">Save</button>
+                <button class="btn btn-edit" onclick="editRow(this, ${index})">Edit</button>
+                <button class="btn btn-delete" onclick="deleteRow(this, ${index})">Delete</button>
+                <button class="btn btn-save" onclick="saveRow(this, ${index})" style="display: none;">Save</button>
             </td>
         `;
         resultContainer.appendChild(newRow);
     }
 
     // Función para editar la fila
-    function editRow(button) {
+    function editRow(button, index) {
         const row = button.closest('tr');
         const cells = row.querySelectorAll('td');
 
@@ -128,7 +124,7 @@
     }
 
     // Función para guardar la fila
-    function saveRow(button) {
+    function saveRow(button, index) {
         const row = button.closest('tr');
         const cells = row.querySelectorAll('td');
 
@@ -148,30 +144,42 @@
         button.previousElementSibling.style.display = 'inline-block';
         button.previousElementSibling.previousElementSibling.style.display = 'inline-block';
 
-        // Aquí puedes implementar la lógica para guardar los cambios en localStorage
-        localStorage.setItem('transportType', transportTypeInput);
-        localStorage.setItem('passengers', passengersInput);
-        localStorage.setItem('departurePoint', departurePointInput);
-        localStorage.setItem('arrivalPoint', arrivalPointInput);
-        localStorage.setItem('carbonEmission', carbonEmissionInput);
+        // Guardar los cambios en localStorage
+        const trips = JSON.parse(localStorage.getItem('trips')) || [];
+        trips[index] = {
+            transportType: transportTypeInput,
+            passengers: passengersInput,
+            departurePoint: departurePointInput,
+            arrivalPoint: arrivalPointInput,
+            carbonEmission: carbonEmissionInput
+        };
+        localStorage.setItem('trips', JSON.stringify(trips));
     }
 
     // Función para eliminar la fila
-    function deleteRow(button) {
+    function deleteRow(button, index) {
         const row = button.closest('tr');
         row.remove();
-        localStorage.removeItem('transportType');
-        localStorage.removeItem('passengers');
-        localStorage.removeItem('departurePoint');
-        localStorage.removeItem('arrivalPoint');
-        localStorage.removeItem('carbonEmission');
+
+        // Eliminar del localStorage
+        const trips = JSON.parse(localStorage.getItem('trips')) || [];
+        trips.splice(index, 1);
+        localStorage.setItem('trips', JSON.stringify(trips));
     }
 
-    // Agregar la primera fila con los atributos comunes si los datos no son "N/A"
-    if (transportType !== "N/A" && passengers !== "N/A" && departurePoint !== "N/A" && arrivalPoint !== "N/A" && carbonEmission !== "N/A") {
-        addRow();
-    } else {
-        console.log("No data found in localStorage.");
+    // Función para borrar todos los datos de localStorage
+    function clearLocalStorage() {
+        localStorage.removeItem('trips');
+        // También puedes usar localStorage.clear() para borrar todo si es necesario
+
+        // Limpiar el contenido de la tabla
+        const resultContainer = document.getElementById('result-container');
+        resultContainer.innerHTML = '';
     }
+
+    // Mostrar datos al cargar la página
+    trips.forEach((trip, index) => {
+        addRow(trip, index);
+    });
 </script>
 {% endblock %}
