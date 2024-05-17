@@ -10,7 +10,6 @@ body {
     padding: 0;
 }
 
-/* Barra de navegación */
 .navbar {
     background-color: #4f4f89;
     color: #fff;
@@ -124,7 +123,6 @@ body {
     width: 30px;
 }
 
-/* Contenido principal */
 .content {
     display: flex;
     justify-content: center; /* Alinea el contenido horizontalmente */
@@ -132,7 +130,6 @@ body {
     width: 100%;
 }
 
-/* Footer */
 footer {
     background-color: #4f4f89;
     color: #fff;
@@ -166,8 +163,6 @@ footer {
     font-size: .875rem;
 
 }
-
-
 
 box a:hover {
     background-color: #4f4f89; /* Color de fondo del botón al pasar el cursor */

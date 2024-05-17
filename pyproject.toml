@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "web1"
+name = "web2"
 version = "0.1.0"
 description = ""
 authors = ["Roberta Alina Mititelu, Ismael Benataya Serghini, Loana Rodrigues Morais, Myroslav Tatchyn, Jon Stegherr Llop"]

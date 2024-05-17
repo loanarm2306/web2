@@ -13,7 +13,7 @@ def calculate_pollution_plain(request):
 
         api_url = "https://www.carboninterface.com/api/v1/estimates"
         headers = {
-            "Authorization": "Bearer Kjd6ggkR8x8KkftIe3SPQ",
+            "Authorization": "Bearer qtHgSzfQ7cKjly6bkoqMYA",
             "Content-Type": "application/json"
         }
         data = {

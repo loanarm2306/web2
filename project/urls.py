@@ -20,9 +20,9 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", TemplateView.as_view(template_name="home.html"), name="home"),  # Create a new path for the home page
-    path("accounts/", include("accounts.urls")),  # It is very important to include this BEFORE the built-in authentication URLs
-    path("accounts/", include("django.contrib.auth.urls")),  # Add the path for the built-in authentication URLs
+    path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("accounts/", include("accounts.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("plane/", TemplateView.as_view(template_name="transport/plane.html"), name="plane"),
     path("subway/", TemplateView.as_view(template_name="transport/subway.html"), name="subway"),
     path("car/", TemplateView.as_view(template_name="transport/car.html"), name="car"),
@@ -31,7 +31,5 @@ urlpatterns = [
     path("motorbike/", TemplateView.as_view(template_name="transport/motorbike.html"), name="motorbike"),
     path("calculate/", TemplateView.as_view(template_name="calculate.html"), name="calculate"),
     path('error/', TemplateView.as_view(template_name="error.html"), name='error_page'),
-    path('results/', TemplateView.as_view(template_name="results.html"), name='results'),
-    path('results/edit/', TemplateView.as_view(template_name="edit_result.html"), name='edit_result'),
-    path('results/delete/', TemplateView.as_view(template_name="confirm_delete.html"), name='confirm_delete')
+    path('results/', TemplateView.as_view(template_name="results.html"), name='results')
 ]
