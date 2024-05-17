@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="login-container">
+        <div class="card mt-5 login-card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Your Pollution Information</h2>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Transport Type</th>
+                        <th>Passengers</th>
+                        <th>Departure</th>
+                        <th>Arrival</th>
+                        <th>Distance</th>
+                        <th>Carbon Emission</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result.date }}</td>
+                        <td>{{ result.transport_type }}</td>
+                        <td>{{ result.passengers }}</td>
+                        <td>{{ result.departure_point }}</td>
+                        <td>{{ result.arrival_point }}</td>
+                        <td>{{ result.distance }}</td>
+                        <td>{{ result.carbon_emission }} grams</td>
+                        <td>
+                            <a href="{% url 'edit_result' result.id %}">Edit</a> |
+                            <a href="{% url 'delete_result' result.id %}">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

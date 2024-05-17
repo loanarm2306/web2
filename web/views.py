@@ -1,6 +1,8 @@
-from django.contrib.sites import requests
-from django.shortcuts import render
-from .models import Passengers, DeparturePoint, ArrivalPoint, DepartureTime, ArrivalTime, Distance, TransportId, TransportType
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import PollutionResult
+from django.http import HttpResponse
+import requests
+
 
 def calculate_pollution_plain(request):
     if request.method == 'POST':
@@ -8,8 +10,6 @@ def calculate_pollution_plain(request):
         passengers = int(request.POST.get('passengers'))
         departure_point = request.POST.get('departure_point')
         arrival_point = request.POST.get('arrival_point')
-
-        transport_obj, created = TransportType.objects.get_or_create(type=transport_type)
 
         api_url = "https://www.carboninterface.com/api/v1/estimates"
         headers = {
@@ -27,10 +27,42 @@ def calculate_pollution_plain(request):
 
         if response.status_code == 200:
             estimate_data = response.json().get('data', {})
-            return render(request, 'resultplain.html', {'estimate_data': estimate_data})
+            carbon_emission = estimate_data['attributes']['carbon_g']
+
+            result = PollutionResult.objects.create(
+                transport_type=transport_type,
+                passengers=passengers,
+                departure_point=departure_point,
+                arrival_point=arrival_point,
+                distance=0,
+                carbon_emission=carbon_emission
+            )
+
+            return render(request, 'results.html', {'estimate_data': estimate_data})
         else:
-            error_message = "Error al calcular la contaminación. Por favor, inténtalo de nuevo más tarde."
-            return render(request, 'error_page.html', {'error_message': error_message})
+            error_message = "Error!"
+            return render(request, 'error.html', {'error_message': error_message})
 
     else:
-        return render(request, 'pollution_form.html')
+        return render(request, 'results.html')
+
+def results_list(request):
+    results = PollutionResult.objects.all()
+    return render(request, 'results.html', {'results': results})
+
+def edit_result_plain(request, result_id):
+    result = get_object_or_404(PollutionResult, pk=result_id)
+    if request.method == 'POST':
+        result.passengers = int(request.POST.get('passengers'))
+        result.departure_point = request.POST.get('departure_point')
+        result.arrival_point = request.POST.get('arrival_point')
+        result.save()
+        return redirect('results_list')
+    return render(request, 'edit_result.html', {'result': result})
+
+def delete_result(request, result_id):
+    result = get_object_or_404(PollutionResult, pk=result_id)
+    if request.method == 'POST':
+        result.delete()
+        return redirect('results_list')
+    return render(request, 'confirm_delete.html', {'result': result})

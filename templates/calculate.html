@@ -8,7 +8,7 @@
     <div class="card mt-5 trip-form-card">
         <div class="card-body">
             <h2 class="card-title text-center">Trip Form</h2>
-            <form class="trip-form" action="/save_trip" method="POST" id="trip-form">
+            <form class="trip-form" action="{% url 'calculate' %}" method="POST" id="trip-form">
                 {% csrf_token %}
                 <label for="transport_type">Transport Type:</label><br>
                 <select name="transport_type" id="transport_type">
@@ -90,15 +90,27 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Save Trip</button>
+                    <button type="submit" class="btn btn-primary">Calculate</button>
                 </div>
             </form>
         </div>
-        <div id="result-container"></div>
+        <div id="result-container-plain" class="mt-4"></div>
+        <div id="save-button-container" class="text-center" style="display:none;">
+            <form method="post" action="{% url 'results' %}" id="save-trip-form">
+                {% csrf_token %}
+                <!-- Hidden inputs to hold the result data -->
+                <input type="hidden" name="transport_type" id="hidden-transport-type">
+                <input type="hidden" name="passengers" id="hidden-passengers">
+                <input type="hidden" name="departure_point" id="hidden-departure-point">
+                <input type="hidden" name="arrival_point" id="hidden-arrival-point">
+                <input type="hidden" name="carbon_emission" id="hidden-carbon-emission">
+                <button type="submit" class="btn btn-primary">Save Trip</button>
+            </form>
+        </div>
     </div>
 </div>
 
-<!-- JavaScript para mostrar y ocultar los detalles del transporte -->
+<!------------------------------------ JavaScript ------------------------------------------------------------------>
 <script>
     function setDefaultForm() {
         document.getElementById('flight-details').style.display = 'block';
@@ -166,10 +178,11 @@
         }
     });
 
+    <!---------------------------------------------------- Plain -------------------------------------------------------------->
     document.getElementById('trip-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // Evita el envío del formulario por defecto
+        event.preventDefault();
 
-        // Construir el objeto de datos para enviar a la API
+        // Create objecte to send to the API
         var formData = new FormData(this);
         var requestData = {
             "type": "flight",
@@ -180,7 +193,7 @@
             ]
         };
 
-        // Realizar la solicitud a la API
+        // Realize solicitude to the API
         fetch("https://www.carboninterface.com/api/v1/estimates", {
             method: "POST",
             headers: {
@@ -192,14 +205,46 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            const resultContainer = document.getElementById('result-container');
-            resultContainer.innerHTML = `<p>CO2 emissions: ${data.data.attributes.carbon_g}</p>`;
-            window.location.pathname = "resultplain";
+            const resultContainer = document.getElementById('result-container-plain');
+            resultContainer.innerHTML = `<p>CO2 emissions: ${data.data.attributes.carbon_g} grams</p>`;
         })
         .catch(error => {
             console.error("Error:", error);
         });
     });
+
+    <!---------------------------------------------------- Car -------------------------------------------------------------->
+    document.getElementById('trip-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+        var requestData = {
+            "type": "vehicle",
+            "distance_unit": "km",
+            "distance_value": parseFloat(formData.get("distance")),
+            "vehicle_model_id": formData.get("vehicle_model") //
+        };
+
+        fetch("https://www.carboninterface.com/api/v1/estimates", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer fJqKwcr9wvNEdR6GgrOkg",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            const resultContainer = document.getElementById('result-container-car');
+            resultContainer.innerHTML = `<p>CO2 emissions: ${data.data.attributes.carbon_g} grams</p>`;
+            window.location.pathname = "resultcar";
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+
 
     //------------TREN
 
