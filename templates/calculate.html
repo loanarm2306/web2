@@ -22,10 +22,10 @@
 
                     <div id="flight-details">
                         <label for="departure_point">Departure Airport (IATA code):</label><br>
-                        <input type="text" id="departure_point" name="departure_point"><br><br>
+                        <input type="text" id="departure" name="departure_point"><br><br>
 
                         <label for="arrival_point">Arrival Airport (IATA code):</label><br>
-                        <input type="text" id="arrival_point" name="arrival_point"><br><br>
+                        <input type="text" id="arrival" name="arrival_point"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
                         <input type="number" id="passengers" name="passengers"><br><br>
@@ -33,7 +33,7 @@
 
                     <div id="car-details" style="display:none;">
                         <label for="departure_point">Departure Point:</label><br>
-                        <input type="text" id="departure_point" name="departure_point"><br><br>
+                        <input type="text" id="dep" name="departure_point"><br><br>
 
                         <label for="arrival_point">Arrival Point:</label><br>
                         <input type="text" id="arrival_point" name="arrival_point"><br><br>
@@ -42,15 +42,15 @@
                         <input type="number" id="distance" name="distance"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="passengers" name="passengers"><br><br>
+                        <input type="number" id="passenger" name="passengers"><br><br>
                     </div>
 
                     <div id="train-details" style="display:none;">
                         <label for="departure_point">Departure Station:</label><br>
-                        <input type="text" id="departure_point" name="departure_point"><br><br>
+                        <input type="text" id="depart" name="departure_point"><br><br>
 
                         <label for="arrival_point">Arrival Station:</label><br>
-                        <input type="text" id="arrival_point" name="arrival_point"><br><br>
+                        <input type="text" id="arr" name="arrival_point"><br><br>
 
                         <label for="departure_time">Departure Time:</label><br>
                         <input type="time" id="departure_time" name="departure_time"><br><br>
@@ -59,26 +59,26 @@
                         <input type="time" id="arrival_time" name="arrival_time"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="passengers" name="passengers"><br><br>
+                        <input type="number" id="pass" name="passengers"><br><br>
                     </div>
 
                     <div id="subway-details" style="display:none;">
                         <label for="departure_point">Departure Station:</label><br>
-                        <input type="text" id="departure_point" name="departure_point"><br><br>
+                        <input type="text" id="depar" name="departure_point"><br><br>
 
                         <label for="arrival_point">Arrival Station:</label><br>
-                        <input type="text" id="arrival_point" name="arrival_point"><br><br>
+                        <input type="text" id="arrival_p" name="arrival_point"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="passengers" name="passengers"><br><br>
+                        <input type="number" id="passeng" name="passengers"><br><br>
                     </div>
 
                     <div id="motorbike-details" style="display:none;">
                         <label for="distance">Distance Travelled (in kilometers):</label><br>
-                        <input type="number" id="distance" name="distance"><br><br>
+                        <input type="number" id="dist" name="distance"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="passengers" name="passengers"><br><br>
+                        <input type="number" id="p" name="passengers"><br><br>
                     </div>
 
                     <div id="boat-details" style="display:none;">
@@ -86,10 +86,10 @@
                         <input type="text" id="departure_point" name="departure_point"><br><br>
 
                         <label for="arrival_point">Arrival Port:</label><br>
-                        <input type="text" id="arrival_point" name="arrival_point"><br><br>
+                        <input type="text" id="a_p" name="arrival_point"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="passengers" name="passengers"><br><br>
+                        <input type="number" id="pssg" name="passengers"><br><br>
                     </div>
 
                     <div class="text-center">
@@ -99,7 +99,7 @@
             </div>
             <div id="result-container-plain" class="mt-4"></div>
             <div id="save-button-container" class="text-center" style="display:none;">
-                <a href="../results" class="btn btn-primary">Save Trip</a>
+                <a id="saveTrip" href="../results" class="btn btn-primary">Save Trip</a>
             </div>
         </div>
     </div>
@@ -162,7 +162,6 @@
                 document.getElementById('motorbike-details').style.display = 'none';
                 document.getElementById('boat-details').style.display = 'block';
             } else {
-                // En caso de que no se seleccione ningún tipo de transporte
                 document.getElementById('flight-details').style.display = 'none';
                 document.getElementById('car-details').style.display = 'none';
                 document.getElementById('train-details').style.display = 'none';
@@ -176,7 +175,6 @@
         document.getElementById('trip-form').addEventListener('submit', function (event) {
             event.preventDefault();
 
-            // Create objecte to send to the API
             var formData = new FormData(this);
             var requestData = {
                 "type": "flight",
@@ -189,7 +187,6 @@
                 ]
             };
 
-            // Realize solicitude to the API
             fetch("https://www.carboninterface.com/api/v1/estimates", {
                 method: "POST",
                 headers: {
@@ -220,7 +217,6 @@
         });
 
         <!---------------------------------------------------- Car -------------------------------------------------------------->
-
         document.getElementById('trip-form').addEventListener('submit', function (event) {
             event.preventDefault(); // Evita el envío del formulario por defecto
 

@@ -2,36 +2,171 @@
 {% load static %}
 
 {% block content %}
-    <div class="login-container">
-        <div class="card mt-5 login-card">
-            <div class="card-body">
-                <h2 class="card-title text-center">Your Pollution Information</h2>
-                <table>
-                    <tr>
-                        <th>Date</th>
-                        <th>Transport Type</th>
-                        <th>Passengers</th>
-                        <th>Departure</th>
-                        <th>Arrival</th>
-                        <th>Carbon Emission</th>
-                        <th>Actions</th>
-                    </tr>
-                    {% for result in results %}
-                    <tr>
-                        <td>{{ result.date }}</td>
-                        <td>{{ result.transport_type }}</td>
-                        <td>{{ result.passengers }}</td>
-                        <td>{{ result.departure_point }}</td>
-                        <td>{{ result.arrival_point }}</td>
-                        <td>{{ result.carbon_emission }} grams</td>
-                        <td>
-                            <a href="{% url 'edit_result' result.id %}">Edit</a> |
-                            <a href="{% url 'delete_result' result.id %}">Delete</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
+<div class="login-container">
+    <div class="card mt-5 login-card">
+        <div class="card-body">
+            <h2 class="card-title text-center">Your Pollution Information</h2>
+            <div class="results-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Transport Type</th>
+                            <th>Passengers</th>
+                            <th>Departure Point</th>
+                            <th>Arrival Point</th>
+                            <th>CO2 Emissions</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="result-container">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
+</div>
+
+<style>
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 18px;
+        text-align: left;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .styled-table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+    .styled-table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #4e4e88;
+    }
+    .styled-table tbody tr.active-row {
+        font-weight: bold;
+        color: #4e4e88;
+    }
+    .buttons-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .btn {
+        padding: 5px 10px;
+        font-size: 14px;
+        margin: 2px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .btn-edit {
+        background-color: #ffc107;
+        color: white;
+    }
+    .btn-save {
+        background-color: #28a745;
+        color: white;
+    }
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+
+<script>
+    // Recuperar datos de localStorage y verificar que no sean null
+    const transportType = localStorage.getItem('transportType') || "N/A";
+    const passengers = localStorage.getItem('passengers') || "N/A";
+    const departurePoint = localStorage.getItem('departurePoint') || "N/A";
+    const arrivalPoint = localStorage.getItem('arrivalPoint') || "N/A";
+    const carbonEmission = localStorage.getItem('carbonEmission') || "N/A";
+
+    // Función para agregar una nueva fila con los datos
+    function addRow() {
+        const resultContainer = document.getElementById('result-container');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${transportType}</td>
+            <td>${passengers}</td>
+            <td>${departurePoint}</td>
+            <td>${arrivalPoint}</td>
+            <td>${carbonEmission !== "N/A" ? carbonEmission + " grams" : carbonEmission}</td>
+            <td>
+                <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
+                <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
+                <button class="btn btn-save" onclick="saveRow(this)" style="display: none;">Save</button>
+            </td>
+        `;
+        resultContainer.appendChild(newRow);
+    }
+
+    // Función para editar la fila
+    function editRow(button) {
+        const row = button.closest('tr');
+        const cells = row.querySelectorAll('td');
+
+        cells[0].innerHTML = `<input type="text" value="${cells[0].innerText}">`;
+        cells[1].innerHTML = `<input type="number" value="${cells[1].innerText}">`;
+        cells[2].innerHTML = `<input type="text" value="${cells[2].innerText}">`;
+        cells[3].innerHTML = `<input type="text" value="${cells[3].innerText}">`;
+        cells[4].innerHTML = `${cells[4].innerText.replace(' grams', '')}<input type="hidden" value="${cells[4].innerText.replace(' grams', '')}">`;
+
+        button.style.display = 'none';
+        button.nextElementSibling.style.display = 'none';
+        button.nextElementSibling.nextElementSibling.style.display = 'inline-block';
+    }
+
+    // Función para guardar la fila
+    function saveRow(button) {
+        const row = button.closest('tr');
+        const cells = row.querySelectorAll('td');
+
+        const transportTypeInput = cells[0].querySelector('input').value;
+        const passengersInput = cells[1].querySelector('input').value;
+        const departurePointInput = cells[2].querySelector('input').value;
+        const arrivalPointInput = cells[3].querySelector('input').value;
+        const carbonEmissionInput = cells[4].querySelector('input').value;
+
+        cells[0].innerText = transportTypeInput;
+        cells[1].innerText = passengersInput;
+        cells[2].innerText = departurePointInput;
+        cells[3].innerText = arrivalPointInput;
+        cells[4].innerText = carbonEmissionInput + " grams";
+
+        button.style.display = 'none';
+        button.previousElementSibling.style.display = 'inline-block';
+        button.previousElementSibling.previousElementSibling.style.display = 'inline-block';
+
+        // Aquí puedes implementar la lógica para guardar los cambios en localStorage
+        localStorage.setItem('transportType', transportTypeInput);
+        localStorage.setItem('passengers', passengersInput);
+        localStorage.setItem('departurePoint', departurePointInput);
+        localStorage.setItem('arrivalPoint', arrivalPointInput);
+        localStorage.setItem('carbonEmission', carbonEmissionInput);
+    }
+
+    // Función para eliminar la fila
+    function deleteRow(button) {
+        const row = button.closest('tr');
+        row.remove();
+    }
+
+    // Agregar la primera fila con los atributos comunes si los datos no son "N/A"
+    if (transportType !== "N/A" && passengers !== "N/A" && departurePoint !== "N/A" && arrivalPoint !== "N/A" && carbonEmission !== "N/A") {
+        addRow();
+    } else {
+        console.log("No data found in localStorage.");
+    }
+</script>
 {% endblock %}
