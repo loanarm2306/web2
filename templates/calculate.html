@@ -98,7 +98,6 @@
         <div id="save-button-container" class="text-center" style="display:none;">
             <form method="post" action="{% url 'results' %}" id="save-trip-form">
                 {% csrf_token %}
-                <!-- Hidden inputs to hold the result data -->
                 <input type="hidden" name="transport_type" id="hidden-transport-type">
                 <input type="hidden" name="passengers" id="hidden-passengers">
                 <input type="hidden" name="departure_point" id="hidden-departure-point">
@@ -189,7 +188,6 @@
             "passengers": formData.get("passengers"),
             "legs": [
                 {"departure_airport": formData.get("departure_point"), "destination_airport": formData.get("arrival_point")},
-                {"departure_airport": formData.get("arrival_point"), "destination_airport": formData.get("departure_point")}
             ]
         };
 
@@ -207,6 +205,16 @@
             console.log(data);
             const resultContainer = document.getElementById('result-container-plain');
             resultContainer.innerHTML = `<p>CO2 emissions: ${data.data.attributes.carbon_g} grams</p>`;
+
+            document.getElementById('save-button-container').style.display = 'block';
+
+            document.getElementById('hidden-transport-type').value = transportType;
+
+            document.getElementById('hidden-passengers').value = formData.get("passengers");
+            document.getElementById('hidden-departure-point').value = formData.get("departure_point");
+            document.getElementById('hidden-arrival-point').value = formData.get("arrival_point");
+            document.getElementById('hidden-carbon-emission').value = data.data.attributes.carbon_g;
+
         })
         .catch(error => {
             console.error("Error:", error);
