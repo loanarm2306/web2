@@ -47,41 +47,25 @@ def calculate_pollution_plain(request):
 
 
 def calculate_pollution_car(request):
-    form_id=request.form.get('form')
     if request.method == 'POST':
         transport_type = request.POST.get('transport_type')
-        passengers = request.POST.get('passengers')
-        distance = request.POST.get('distance')
-        distance_unit = 'km'
+        departure_point = request.POST.get('departure_point')
+        arrival_point = request.POST.get('arrival_point')
+        distance_travelled = int(request.POST.get('distance_travelled'))
+        passengers = int(request.POST.get('passengers'))
 
-        api_url = "https://www.carboninterface.com/api/v1/estimates"
-        headers = {
-            "Authorization": "Bearer fJqKwcr9wvNEdR6GgrOkg",
-            "Content-Type": "application/json"
-        }
-        data = {
-            "type": "vehicle",
-            "distance_unit": distance_unit,
-            "distance_value": float(distance),
-        }
-        response = requests.post(api_url, headers=headers, json=data)
+        emission_per_km = 120
+        total_emission = emission_per_km * distance_travelled * passengers
 
-        if response.status_code == 200:
-            estimate_data = response.json().get('data', {})
-            carbon_emission = estimate_data['attributes']['carbon_g']
+        result = PollutionResult.objects.create(
+            transport_type=transport_type,
+            passengers=passengers,
+            departure_point=departure_point,
+            arrival_point=arrival_point,
+            carbon_emission=total_emission
+        )
 
-            result = PollutionResult.objects.create(
-                transport_type=transport_type,
-                passengers=passengers,
-                distance=distance,
-                carbon_emission=carbon_emission
-            )
-
-            return redirect('results')
-        else:
-            error_message = "Error!"
-            return render(request, 'error.html', {'error_message': error_message})
-
+        return render(request, 'results.html', {'estimate_data': {'carbon_g': total_emission}})
     else:
         return render(request, 'results.html')
 
@@ -136,7 +120,7 @@ def calculate_pollution_subway(request):
             'Station2-Station3': 7
         }
 
-        distance_key = f'{departure_point}-{arrival_point}'
+        distance_key = f'{departure_station}-{arrival_station}'
         distance = distances.get(distance_key, 0)
 
         if distance == 0:
