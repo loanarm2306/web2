@@ -31,6 +31,10 @@
                 {% csrf_token %}
                 <button id="calculate_pollution">Calculate Pollution</button>
             </a>
+            <a href="{% url 'results' %}" method="POST">
+                {% csrf_token %}
+                <button id="results">Your Space</button>
+            </a>
         {% endif %}
     </div>
     <div id="div_login_logout">

@@ -46,6 +46,46 @@ def calculate_pollution_plain(request):
         return render(request, 'results.html')
 
 
+def calculate_pollution_car(request):
+    form_id=request.form.get('form')
+    if request.method == 'POST':
+        transport_type = request.POST.get('transport_type')
+        passengers = request.POST.get('passengers')
+        distance = request.POST.get('distance')
+        distance_unit = 'km'
+
+        api_url = "https://www.carboninterface.com/api/v1/estimates"
+        headers = {
+            "Authorization": "Bearer fJqKwcr9wvNEdR6GgrOkg",
+            "Content-Type": "application/json"
+        }
+        data = {
+            "type": "vehicle",
+            "distance_unit": distance_unit,
+            "distance_value": float(distance),
+        }
+        response = requests.post(api_url, headers=headers, json=data)
+
+        if response.status_code == 200:
+            estimate_data = response.json().get('data', {})
+            carbon_emission = estimate_data['attributes']['carbon_g']
+
+            result = PollutionResult.objects.create(
+                transport_type=transport_type,
+                passengers=passengers,
+                distance=distance,
+                carbon_emission=carbon_emission
+            )
+
+            return redirect('results')
+        else:
+            error_message = "Error!"
+            return render(request, 'error.html', {'error_message': error_message})
+
+    else:
+        return render(request, 'results.html')
+
+
 def calculate_pollution_train(request):
     if request.method == 'POST':
         transport_type = request.POST.get('transport_type')
@@ -177,7 +217,6 @@ def calculate_pollution_boat(request):
 
     else:
         return render(request, 'calculate.html')
-
 
 
 def results_list(request):
