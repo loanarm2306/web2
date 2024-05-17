@@ -25,7 +25,7 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),  # Add the path for the built-in authentication URLs
     path("plane/", TemplateView.as_view(template_name="transport/plane.html"), name="plane"),
     path("subway/", TemplateView.as_view(template_name="transport/subway.html"), name="subway"),
-    path("transport/", TemplateView.as_view(template_name="transport/car.html"), name="transport"),
+    path("car/", TemplateView.as_view(template_name="transport/car.html"), name="car"),
     path("boat/", TemplateView.as_view(template_name="transport/boat.html"), name="boat"),
     path("train/", TemplateView.as_view(template_name="transport/train.html"), name="train"),
     path("motorbike/", TemplateView.as_view(template_name="transport/motorbike.html"), name="motorbike"),
@@ -33,4 +33,3 @@ urlpatterns = [
     path("resultplain/", TemplateView.as_view(template_name="resultplain.html"), name="resultplain"),
     path('error/', TemplateView.as_view(template_name="error.html"), name='error_page')
 ]
-
