@@ -31,6 +31,10 @@ urlpatterns = [
     path("motorbike/", TemplateView.as_view(template_name="transport/motorbike.html"), name="motorbike"),
     path("calculate/", TemplateView.as_view(template_name="calculate.html"), name="calculate"),
     path("resultplain/", TemplateView.as_view(template_name="resultplain.html"), name="resultplain"),
+    path("resultBoat/", TemplateView.as_view(template_name="resultBoat.html"), name="resultBoat"),
+    path("resultMotorbike/", TemplateView.as_view(template_name="resultMotorbike.html"), name="resultMotorbike"),
+    path("resultSubway/", TemplateView.as_view(template_name="resultSubway.html"), name="resultSubway"),
+    path("resultTrain/", TemplateView.as_view(template_name="resultTrain.html"), name="resultTrain"),
     path('error/', TemplateView.as_view(template_name="error.html"), name='error_page')
 ]
 
