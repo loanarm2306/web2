@@ -40,7 +40,7 @@
     <div id="div_login_logout">
         {% if user.is_authenticated %}
         <div class="logout">
-            <form action="{% url 'logout' %}" method="post"> <!-- We can add a form to log out here -->
+            <form action="{% url 'logout' %}" method="post">
               {% csrf_token %}
               <button id="logout_btn" type="submit"><img id="image_logout" src="{% static 'images/icons/icon-logout.png' %}" alt="Logout"></button>
             </form>
@@ -52,7 +52,6 @@
         {% endif %}
     </div>
   </nav>
-
 
   <main>
     <div class="content">

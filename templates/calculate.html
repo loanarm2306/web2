@@ -13,11 +13,6 @@
                     <label for="transport_type">Transport Type:</label><br>
                     <select name="transport_type" id="transport_type">
                         <option value="plane" selected>Plane</option>
-                        <option value="car">Car</option>
-                        <option value="train">Train</option>
-                        <option value="subway">Subway</option>
-                        <option value="motorbike">Motorbike</option>
-                        <option value="boat">Boat</option>
                     </select><br><br>
 
                     <div id="flight-details">
@@ -104,8 +99,7 @@
         </div>
     </div>
 
-    <!------------------------------------ JavaScript ------------------------------------------------------------------>
-    <script>
+     <script>
         function setDefaultForm() {
             document.getElementById('flight-details').style.display = 'block';
             document.getElementById('car-details').style.display = 'none';
@@ -119,6 +113,7 @@
 
         document.getElementById('transport_type').addEventListener('change', function () {
             var transportType = this.value;
+
             if (transportType === 'plane') {
                 document.getElementById('flight-details').style.display = 'block';
                 document.getElementById('car-details').style.display = 'none';
@@ -190,7 +185,7 @@
             fetch("https://www.carboninterface.com/api/v1/estimates", {
                 method: "POST",
                 headers: {
-                    "Authorization": "Bearer Kjd6ggkR8x8KkftIe3SPQ",
+                    "Authorization": "Bearer qtHgSzfQ7cKjly6bkoqMYA",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(requestData)
@@ -203,18 +198,10 @@
 
                     document.getElementById('save-button-container').style.display = 'block';
 
-
-                    //localStorage.setItem('transportType', "flight"); // Assuming transportType is always "flight" in this context
-                    //localStorage.setItem('passengers', formData.get("passengers"));
-                    //localStorage.setItem('departurePoint', formData.get("departure_point"));
-                    //localStorage.setItem('arrivalPoint', formData.get("arrival_point"));
-                    //localStorage.setItem('carbonEmission', data.data.attributes.carbon_g);
-                    // Get existing trips from localStorage or initialize a new array
-
                     const trips = JSON.parse(localStorage.getItem('trips')) || [];
-                    // Create a new trip object
+
                     const newTrip = {
-                        transportType: "flight", // Assuming transportType is always "flight" in this context
+                        transportType: "flight",
                         passengers: formData.get("passengers"),
                         departurePoint: formData.get("departure_point"),
                         arrivalPoint: formData.get("arrival_point"),
@@ -234,153 +221,123 @@
 
         <!---------------------------------------------------- Car -------------------------------------------------------------->
         document.getElementById('trip-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Evita el envío del formulario por defecto
+            event.preventDefault();
 
-            // Recoger los datos del formulario
             var formData = new FormData(this);
             var departurePoint = formData.get("departure_point");
             var arrivalPoint = formData.get("arrival_point");
-            var distanceTravelled = parseInt(formData.get("distance_travelled")); //
+            var distanceTravelled = parseInt(formData.get("distance_travelled"));
             var numberOfPassengers = parseInt(formData.get("passengers"));
 
-            // suponiendo que un coche emite 120 gramos de CO2 por kilómetro
             var emissionPerKm = 120;
             var totalEmission = emissionPerKm * distanceTravelled * numberOfPassengers;
 
-            // Mostrar el resultado en la página
             document.getElementById('result').innerText = `La polución total del viaje en coche desde ${departurePoint} a ${arrivalPoint} es de ${totalEmission} gramos de CO2.`;
         });
 
 
         <!---------------------------------------------------- Train -------------------------------------------------------------->
-
-
         document.getElementById('trip-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Evita el envío del formulario por defecto
+            event.preventDefault();
 
-            // Recoger los datos del formulario
             var formData = new FormData(this);
             var departureStation = formData.get("departure_point");
             var arrivalStation = formData.get("arrival_point");
             var numberOfPassengers = parseInt(formData.get("passengers"));
 
-            //  distancia entre estaciones. Para simplificar, utilizamos datos fijos.
             var distances = {
-                'StationA-StationB': 100, // distancia en kilómetros
+                'StationA-StationB': 100,
                 'StationA-StationC': 200,
                 'StationB-StationC': 150
             };
 
-            // Crear la clave para buscar la distancia en el objeto distances
             var distanceKey = `${departureStation}-${arrivalStation}`;
             var distance = distances[distanceKey] || 0;
 
-            // Verificar si se encontró la distancia
             if (distance === 0) {
                 document.getElementById('result').innerText = 'Distancia desconocida entre las estaciones proporcionadas.';
                 return;
             }
 
-            // suponiendo que el tren emite 50 gramos de CO2 por pasajero por kilómetro
-            var emissionPerPassengerPerKm = 50; // gramos de CO2
+            var emissionPerPassengerPerKm = 50;
             var totalEmission = emissionPerPassengerPerKm * distance * numberOfPassengers;
 
-            // Mostrar el resultado en la página
             document.getElementById('result').innerText = `La polución total del viaje es de ${totalEmission} gramos de CO2.`;
         });
 
         <!---------------------------------------------------- Subway -------------------------------------------------------------->
-
         document.getElementById('trip-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Evita el envío del formulario por defecto
+            event.preventDefault();
 
-            // Recoger los datos del formulario
             var formData = new FormData(this);
             var departureStation = formData.get("departure_point");
             var arrivalStation = formData.get("arrival_point");
             var numberOfPassengers = parseInt(formData.get("passengers"));
 
-            //  distancia entre estaciones. Para simplificar, utilizamos datos fijos.
             var distances = {
                 'Station1-Station2': 5,
                 'Station1-Station3': 10,
                 'Station2-Station3': 7
             };
 
-            // Crear la clave para buscar la distancia en el objeto distances
             var distanceKey = `${departureStation}-${arrivalStation}`;
             var distance = distances[distanceKey] || 0;
 
-            // Verificar si se encontró la distancia
             if (distance === 0) {
                 document.getElementById('result').innerText = 'Distancia desconocida entre las estaciones proporcionadas.';
                 return;
             }
 
-            //  suponiendo que el metro emite 30 gramos de CO2 por pasajero por kilómetro
             var emissionPerPassengerPerKm = 30;
             var totalEmission = emissionPerPassengerPerKm * distance * numberOfPassengers;
 
-            // Mostrar el resultado en la página
             document.getElementById('result').innerText = `La polución total del viaje es de ${totalEmission} gramos de CO2.`;
         });
 
         <!---------------------------------------------------- Motorbike -------------------------------------------------------------->
-
         document.getElementById('trip-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Evita el envío del formulario por defecto
+            event.preventDefault();
 
-            // Recoger los datos del formulario
             var formData = new FormData(this);
             var distanceTravelled = parseFloat(formData.get("distance"));
             var numberOfPassengers = parseInt(formData.get("passengers"));
 
-            //  suponiendo que la motocicleta emite 100 gramos de CO2 por pasajero por kilómetro
             var emissionPerPassengerPerKm = 100;
             var totalEmission = emissionPerPassengerPerKm * distanceTravelled * numberOfPassengers;
 
-            // Mostrar el resultado en la página
             document.getElementById('result').innerText = `La polución total del viaje es de ${totalEmission} gramos de CO2.`;
-
         });
 
         <!---------------------------------------------------- Boat -------------------------------------------------------------->
 
         document.getElementById('trip-form').addEventListener('submit', function (event) {
-            event.preventDefault(); // Evita el envío del formulario por defecto
+            event.preventDefault();
 
-            // Recoger los datos del formulario
             var formData = new FormData(this);
             var departurePort = formData.get("departure_port");
             var arrivalPort = formData.get("arrival_port");
             var numberOfPassengers = parseInt(formData.get("passengers"));
 
-            //  distancia entre puertos. Para simplificar, utilizamos datos fijos.
             var distances = {
-                'Port1-Port2': 50, // distancia en kilómetros
+                'Port1-Port2': 50,
                 'Port1-Port3': 120,
                 'Port2-Port3': 90
             };
 
-            // Crear la clave para buscar la distancia en el objeto distances
             var distanceKey = `${departurePort}-${arrivalPort}`;
             var distance = distances[distanceKey] || 0;
 
-            // Verificar si se encontró la distancia
             if (distance === 0) {
                 document.getElementById('result').innerText = 'Distancia desconocida entre las estaciones proporcionadas.';
                 return;
             }
 
-            //  suponiendo que el barco emite 250 gramos de CO2 por pasajero por kilómetro
             var emissionPerPassengerPerKm = 250; // gramos de CO2
             var totalEmission = emissionPerPassengerPerKm * distance * numberOfPassengers;
 
-            // Mostrar el resultado en la página
+
             document.getElementById('result').innerText = `La polución total del viaje es de ${totalEmission} gramos de CO2.`;
         });
-
-
     </script>
 
 {% endblock %}

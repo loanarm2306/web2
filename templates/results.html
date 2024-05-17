@@ -19,7 +19,6 @@
                         </tr>
                     </thead>
                     <tbody id="result-container">
-                        <!-- Dynamic content will be inserted here -->
                     </tbody>
                 </table>
             </div>
@@ -36,32 +35,40 @@
         text-align: left;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
+
     .styled-table thead tr {
-        background-color: #009879;
+        background-color: #4e4e88;
         color: #ffffff;
         text-align: left;
     }
+
     .styled-table th,
     .styled-table td {
         padding: 12px 15px;
     }
+
     .styled-table tbody tr {
         border-bottom: 1px solid #dddddd;
     }
+
     .styled-table tbody tr:nth-of-type(even) {
         background-color: #f3f3f3;
     }
+
     .styled-table tbody tr:last-of-type {
         border-bottom: 2px solid #4e4e88;
     }
+
     .styled-table tbody tr.active-row {
         font-weight: bold;
         color: #4e4e88;
     }
+
     .buttons-container {
         text-align: center;
         margin-top: 20px;
     }
+
     .btn {
         padding: 5px 10px;
         font-size: 14px;
@@ -70,25 +77,27 @@
         cursor: pointer;
         border-radius: 5px;
     }
+
     .btn-edit {
         background-color: #ffc107;
         color: white;
     }
+
     .btn-save {
         background-color: #28a745;
         color: white;
     }
+
     .btn-delete {
         background-color: #dc3545;
         color: white;
     }
+
 </style>
 
 <script>
-    // Recuperar datos de localStorage y verificar que no sean null
     const trips = JSON.parse(localStorage.getItem('trips')) || [];
 
-    // Función para agregar una nueva fila con los datos
     function addRow(trip, index) {
         const resultContainer = document.getElementById('result-container');
         const newRow = document.createElement('tr');
@@ -107,7 +116,6 @@
         resultContainer.appendChild(newRow);
     }
 
-    // Función para editar la fila
     function editRow(button, index) {
         const row = button.closest('tr');
         const cells = row.querySelectorAll('td');
@@ -123,7 +131,6 @@
         button.nextElementSibling.nextElementSibling.style.display = 'inline-block';
     }
 
-    // Función para guardar la fila
     function saveRow(button, index) {
         const row = button.closest('tr');
         const cells = row.querySelectorAll('td');
@@ -144,7 +151,6 @@
         button.previousElementSibling.style.display = 'inline-block';
         button.previousElementSibling.previousElementSibling.style.display = 'inline-block';
 
-        // Guardar los cambios en localStorage
         const trips = JSON.parse(localStorage.getItem('trips')) || [];
         trips[index] = {
             transportType: transportTypeInput,
@@ -156,28 +162,22 @@
         localStorage.setItem('trips', JSON.stringify(trips));
     }
 
-    // Función para eliminar la fila
     function deleteRow(button, index) {
         const row = button.closest('tr');
         row.remove();
 
-        // Eliminar del localStorage
         const trips = JSON.parse(localStorage.getItem('trips')) || [];
         trips.splice(index, 1);
         localStorage.setItem('trips', JSON.stringify(trips));
     }
 
-    // Función para borrar todos los datos de localStorage
     function clearLocalStorage() {
         localStorage.removeItem('trips');
-        // También puedes usar localStorage.clear() para borrar todo si es necesario
 
-        // Limpiar el contenido de la tabla
         const resultContainer = document.getElementById('result-container');
         resultContainer.innerHTML = '';
     }
 
-    // Mostrar datos al cargar la página
     trips.forEach((trip, index) => {
         addRow(trip, index);
     });
