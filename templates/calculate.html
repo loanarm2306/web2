@@ -37,9 +37,6 @@
 
                     <label for="passengers">Number of Passengers:</label><br>
                     <input type="number" id="passengers" name="passengers"><br><br>
-
-                    <label for="vehicle_model">Vehicle Model:</label><br>
-                    <input type="text" id="vehicle_model" name="vehicle_model"><br><br>
                 </div>
 
                 <div id="train-details" style="display:none;">
@@ -96,15 +93,7 @@
         </div>
         <div id="result-container-plain" class="mt-4"></div>
         <div id="save-button-container" class="text-center" style="display:none;">
-            <form method="post" action="{% url 'results' %}" id="save-trip-form">
-                {% csrf_token %}
-                <input type="hidden" name="transport_type" id="hidden-transport-type">
-                <input type="hidden" name="passengers" id="hidden-passengers">
-                <input type="hidden" name="departure_point" id="hidden-departure-point">
-                <input type="hidden" name="arrival_point" id="hidden-arrival-point">
-                <input type="hidden" name="carbon_emission" id="hidden-carbon-emission">
-                <button type="submit" class="btn btn-primary">Save Trip</button>
-            </form>
+            <a href="../results" class="btn btn-primary">Save Trip</a>
         </div>
     </div>
 </div>
@@ -213,6 +202,7 @@
             document.getElementById('hidden-departure-point').value = formData.get("departure_point");
             document.getElementById('hidden-arrival-point').value = formData.get("arrival_point");
             document.getElementById('hidden-carbon-emission').value = data.data.attributes.carbon_g;
+            window.location.pathname = "results";
 
         })
         .catch(error => {
@@ -228,8 +218,7 @@
         var requestData = {
             "type": "vehicle",
             "distance_unit": "km",
-            "distance_value": parseFloat(formData.get("distance")),
-            "vehicle_model_id": formData.get("vehicle_model") //
+            "distance_value": parseFloat(formData.get("distance"))
         };
 
         fetch("https://www.carboninterface.com/api/v1/estimates", {
@@ -245,7 +234,7 @@
             console.log(data);
             const resultContainer = document.getElementById('result-container-car');
             resultContainer.innerHTML = `<p>CO2 emissions: ${data.data.attributes.carbon_g} grams</p>`;
-            window.location.pathname = "resultcar";
+            window.location.pathname = "result";
         })
         .catch(error => {
             console.error("Error:", error);
