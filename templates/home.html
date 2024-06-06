@@ -2,58 +2,58 @@
 {% load static %}
 
 {% block content %}
-    <head>
+    <head typeof="WebPage">
       <meta charset="utf-8">
-      <title>{% block title %}Pollution Web{% endblock %}</title>
-      <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+      <title property="name">{% block title %}Pollution Web{% endblock %}</title>
+      <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}" property="stylesheet">
     </head>
     <!-- Contenido Home -->
-    <div class="container">
-      <h1>Pollution</h1>
-      <p>CO2 pollution, stemming from activities like burning fossil fuels and deforestation, contributes to global warming and climate change. It poses health risks and environmental challenges, urging the need for sustainable solutions.</p>
+    <div class="container" property="mainContentOfPage">
+      <h1 property="headline">Pollution</h1>
+      <p property="description">CO2 pollution, stemming from activities like burning fossil fuels and deforestation, contributes to global warming and climate change. It poses health risks and environmental challenges, urging the need for sustainable solutions.</p>
     </div>
 
-    <div class="blank"></div>
+    <div class="blank" property="blank"></div>
 
-    <div class ="container second">
+    <div class="container second" property="secondaryContent">
         <div class="row">
-          <div class="box">
-              <img id="image_h" src="{% static 'images/plane/plane.jpg' %}" alt="Plane">
+          <div class="box" typeof="TransportationBusiness" property="transportation">
+              <img id="image_h" src="{% static 'images/plane/plane.jpg' %}" alt="Plane" property="image">
               <div class="card">
-                <a href="plane">PLANE</a>
+                <a href="plane" property="url">PLANE</a>
               </div>
           </div>
-          <div class="box">
-              <img id="image_h" src="{% static 'images/boat/boat.jpg' %}" alt="Boat">
+          <div class="box" typeof="TransportationBusiness" property="transportation">
+              <img id="image_h" src="{% static 'images/boat/boat.jpg' %}" alt="Boat" property="image">
               <div class="card">
-                <a href="boat">BOAT</a>
+                <a href="boat" property="url">BOAT</a>
               </div>
           </div>
-          <div class="box">
-              <img id="image_h" src="{% static 'images/train/train.jpg' %}" alt="Train">
+          <div class="box" typeof="TransportationBusiness" property="transportation">
+              <img id="image_h" src="{% static 'images/train/train.jpg' %}" alt="Train" property="image">
               <div class="card">
-                <a href="train">TRAIN</a>
+                <a href="train" property="url">TRAIN</a>
               </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="box">
-              <img id="image_h" src="{% static 'images/subway/subway.jpg' %}" alt="Subway">
+          <div class="box" typeof="TransportationBusiness" property="transportation">
+              <img id="image_h" src="{% static 'images/subway/subway.jpg' %}" alt="Subway" property="image">
               <div class="card">
-                <a href="subway">SUBWAY</a>
+                <a href="subway" property="url">SUBWAY</a>
               </div>
           </div>
-          <div class="box">
-              <img id="image_h" src="{% static 'images/car/car.jpg' %}" alt="Car">
+          <div class="box" typeof="TransportationBusiness" property="transportation">
+              <img id="image_h" src="{% static 'images/car/car.jpg' %}" alt="Car" property="image">
               <div class="card">
-                <a href="transport">CAR</a>
+                <a href="car" property="url">CAR</a>
               </div>
           </div>
-          <div class="box">
-              <img id="image_h" src="{% static 'images/moto/moto.jpg' %}" alt="Motorbike">
+          <div class="box" typeof="TransportationBusiness" property="transportation">
+              <img id="image_h" src="{% static 'images/moto/moto.jpg' %}" alt="Motorbike" property="image">
               <div class="card">
-                <a href="motorbike">MOTORBIKE</a>
+                <a href="motorbike" property="url">MOTORBIKE</a>
               </div>
           </div>
         </div>

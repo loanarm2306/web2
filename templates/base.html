@@ -1,73 +1,71 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" vocab="http://schema.org/" typeof="WebPage">
 <head>
   <meta charset="utf-8">
-  <title>{% block title %}Pollution Web{% endblock %}</title>
+  <title property="name">{% block title %}Pollution Web{% endblock %}</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/nav_bar.css' %}">
 </head>
-
 <body>
-  <nav class="navbar">
+  <nav class="navbar" typeof="SiteNavigationElement">
     <div class="logo">
-        <img src="{% static 'images/icons/logo_plane.png' %}" alt="Logo">
+        <img src="{% static 'images/icons/logo_plane.png' %}" alt="Logo" property="image">
     </div>
-    <div class="nav-links">
-        <a href="../#">Home</a>
-        <div class="dropdown">
-            <button id="transports_btn" class="dropbtn">Transports</button>
+    <div class="nav-links" property="url">
+        <a href="../#" property="url">Home</a>
+        <div class="dropdown" property="url">
+            <button id="transports_btn" class="dropbtn" property="name">Transports</button>
             <div class="dropdown-content">
-                <a href="../plane">Plane</a>
-                <a href="../boat">Boat</a>
-                <a href="../train">Train</a>
-                <a href="../subway">Subway</a>
-                <a href="../car">Car</a>
-                <a href="../motorbike">Motorbike</a>
+                <a href="../plane" property="url">Plane</a>
+                <a href="../boat" property="url">Boat</a>
+                <a href="../train" property="url">Train</a>
+                <a href="../subway" property="url">Subway</a>
+                <a href="../car" property="url">Car</a>
+                <a href="../motorbike" property="url">Motorbike</a>
             </div>
         </div>
         {% if user.is_authenticated %}
-            <a href="{% url 'calculate' %}" method="POST">
+            <a href="{% url 'calculate' %}" method="POST" property="url">
                 {% csrf_token %}
-                <button id="calculate_pollution">Calculate Pollution</button>
+                <button id="calculate_pollution" property="name">Calculate Pollution</button>
             </a>
-            <a href="{% url 'results' %}" method="POST">
+            <a href="{% url 'results' %}" method="POST" property="url">
                 {% csrf_token %}
-                <button id="results">Your Space</button>
+                <button id="results" property="name">Your Space</button>
             </a>
         {% endif %}
     </div>
-    <div id="div_login_logout">
+    <div id="div_login_logout" property="url">
         {% if user.is_authenticated %}
         <div class="logout">
-            <form action="{% url 'logout' %}" method="post">
+            <form action="{% url 'logout' %}" method="post" property="url">
               {% csrf_token %}
-              <button id="logout_btn" type="submit"><img id="image_logout" src="{% static 'images/icons/icon-logout.png' %}" alt="Logout"></button>
+              <button id="logout_btn" type="submit" property="url"><img id="image_logout" src="{% static 'images/icons/icon-logout.png' %}" alt="Logout"></button>
             </form>
         </div>
         {% else %}
-        <div class="login">
-            <a href="{% url 'login' %}"><img id="image_login" src="{% static 'images/icons/icon-user.png' %}" alt="Login"></a>
+        <div class="login" property="url">
+            <a href="{% url 'login' %}" property="url"><img id="image_login" src="{% static 'images/icons/icon-user.png' %}" alt="Login"></a>
         </div>
         {% endif %}
     </div>
   </nav>
-
-  <main>
+  <main property="mainContentOfPage">
     <div class="content">
         {% block content %}
         {% endblock %}
     </div>
   </main>
-  <footer>
+  <footer property="footer" typeof="CreativeWork">
     <div class="copyright">
         <p>&copy; 2024 - All rights reserved</p>
     </div>
     <div class="footer-links">
-        <a href="../#">Home</a>
-        <a href="../#">Transports</a>
+        <a href="../#" property="url">Home</a>
+        <a href="../#" property="url">Transports</a>
     </div>
   </footer>
 </body>
 </html>
-</html>
+
