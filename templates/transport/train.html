@@ -3,17 +3,20 @@
 
 {% block content %}
 
-    <body typeof="EnvironmentalImpact">
-        <h1 property="title">Train Pollution</h1>
-        <p>Pollution is the introduction of substances or energy that alter the environment or the quality of life of living beings. It can take various forms, including air, water, soil, acoustic, light, and thermal pollution, among others.</p>
+    <body>
+        <h1 property="name">Train Pollution</h1>
+        <p  property="description">Pollution is the introduction of substances or energy that alter the environment or the quality of life of living beings. It can take various forms, including air, water, soil, acoustic, light, and thermal pollution, among others.</p>
         <img id="train_pollution" src="{% static 'images/train/train_pollution.jpg' %}" alt="Train Pollution" property="image">
-        <h2 property="impactTitle">The Environmental Impact of Trains</h2>
-        <ul>
-            <li>Air pollution </li>
-            <p>Trains, pivotal in transportation, also pose environmental challenges. Diesel locomotives emit pollutants, compromising air quality and public health. <p>
-            <p>Railway construction disrupts ecosystems and consumes resources. Furthermore, transporting goods risks spills, endangering local environments. <p>
-            <li>How do rail construction affect</li>
-            <p>Rail construction impacts the environment through habitat destruction and resource consumption. Clearing land for tracks disrupts ecosystems, leading to loss of biodiversity. Additionally, the production of materials like steel and concrete for railways contributes to carbon emissions and resource depletion. <p>
+        <h2 property="headline">The Environmental Impact of Trains</h2>
+        <ul vocab="http://schema.org/" typeof="ItemList">
+            <li property="itemListElement" typeof="ListItem">
+                <meta property="position" content="1">
+                <span property="name">Air pollution </span>
+                <p property="description">Trains, pivotal in transportation, also pose environmental challenges. Diesel locomotives emit pollutants, compromising air quality and public health. <p>
+                <p property="description">Railway construction disrupts ecosystems and consumes resources. Furthermore, transporting goods risks spills, endangering local environments. <p>
+                <span property="name">How do rail construction affect</span>
+                <p property="description">Rail construction impacts the environment through habitat destruction and resource consumption. Clearing land for tracks disrupts ecosystems, leading to loss of biodiversity. Additionally, the production of materials like steel and concrete for railways contributes to carbon emissions and resource depletion. <p>
+            </p>
         </ul>
     </body>
 
