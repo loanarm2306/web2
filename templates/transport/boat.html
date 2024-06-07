@@ -2,17 +2,18 @@
 {% load static %}
 
 {% block content %}
-
-    <body>
-        <h1>Boat Pollution</h1>
-        <p>Pollution is the introduction of substances or energy that alter the environment or the quality of life of living beings. It can take various forms, including air, water, soil, acoustic, light, and thermal pollution, among others.</p>
-        <img id="boat_pollution" src="{% static 'images/boat/boat_pollution.jpg' %}" alt="Boat Pollution">
-        <h2>The Environmental Impact of Airplanes</h2>
-        <ul>
-            <li>Air pollution </li>
-            <p>Commercial boats and ferries contribute to water pollution through emissions, fuel and oil spills, ballast water discharge, sewage and waste discharge, and the use of anti-fouling paints. </p>
-            <p>These activities can harm marine ecosystems, introduce invasive species, and contribute to marine litter. Efforts to mitigate pollution include regulations, cleaner technologies, and improved waste management practices, but ongoing action is needed to protect marine environments..</p>
-           </ul>
-    </body>
-
+<body>
+    <h1 property="name">Boat Pollution</h1>
+    <p property="description">Pollution is the introduction of substances or energy that alter the environment or the quality of life of living beings. It can take various forms, including air, water, soil, acoustic, light, and thermal pollution, among others.</p>
+    <img id="boat_pollution" src="{% static 'images/boat/boat_pollution.jpg' %}" alt="Boat Pollution" property="image">
+    <h2 property="headline">The Environmental Impact of Airplanes</h2>
+    <ul vocab="http://schema.org/" typeof="ItemList">
+        <li property="itemListElement" typeof="ListItem">
+            <meta property="position" content="1">
+            <span property="name">Air pollution</span>
+            <p property="description">Commercial boats and ferries contribute to water pollution through emissions, fuel and oil spills, ballast water discharge, sewage and waste discharge, and the use of anti-fouling paints.</p>
+            <p property="description">These activities can harm marine ecosystems, introduce invasive species, and contribute to marine litter. Efforts to mitigate pollution include regulations, cleaner technologies, and improved waste management practices, but ongoing action is needed to protect marine environments.</p>
+        </li>
+    </ul>
+</body>
 {% endblock %}

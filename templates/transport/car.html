@@ -6,64 +6,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Pollution</title>
+    <title property="name">Car Pollution</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/info_page.css' %}">
 </head>
-    
-<body>
-    <h1>Car Pollution</h1>
-    <p>Car pollution, also known as vehicle emissions, refers to the harmful gases and particles released by vehicles as a byproduct of combustion engines burning fuel.
-        It's a significant contributor to air pollution, particularly in urban areas where traffic congestion is high.</p>
 
+<body>
+    <h1 property="headline">Car Pollution</h1>
+    <p property="description">Car pollution, also known as vehicle emissions, refers to the harmful gases and particles released by vehicles as a byproduct of combustion engines burning fuel. It's a significant contributor to air pollution, particularly in urban areas where traffic congestion is high.</p>
 
     <div class="container">
-        <div class="box">
-            <img src="{% static 'images/car/cars_in_city1.jpg' %}" alt="Car pollution image">
+        <div class="box" typeof="CarPollutant">
+            <img src="{% static 'images/car/cars_in_city1.jpg' %}" alt="Car pollution image" property="image">
             <div class="text text-a">Types of Pollutants</div>
-            <div class="text text-b">Vehicle emissions contain various pollutants, including carbon monoxide (CO), nitrogen oxides (NOx),
-                volatile organic compounds (VOCs), particulate matter (PM), and greenhouse gases like carbon dioxide (CO2).
-                Each of these pollutants has its own detrimental effects on human health and the environment.
-            </div>
+            <div class="text text-b" property="pollutants">Vehicle emissions contain various pollutants, including carbon monoxide (CO), nitrogen oxides (NOx), volatile organic compounds (VOCs), particulate matter (PM), and greenhouse gases like carbon dioxide (CO2). Each of these pollutants has its own detrimental effects on human health and the environment.</div>
         </div>
-        <div class="box">
-            <img src="{% static 'images/car/cars_in_city2.jpg' %}" alt="Car pollution image">
+        <div class="box" typeof="HealthImpact">
+            <img src="{% static 'images/car/cars_in_city2.jpg' %}" alt="Car pollution image" property="image">
             <div class="text text-a">Health Impacts</div>
-            <div class="text text-b">Exposure to car pollution can lead to numerous health problems, including respiratory diseases,
-                cardiovascular issues, and exacerbation of asthma symptoms. Fine particulate matter, in particular,
-                can penetrate deep into the lungs and even enter the bloodstream, causing systemic health effects
-            </div>
+            <div class="text text-b" property="impactDescription">Exposure to car pollution can lead to numerous health problems, including respiratory diseases, cardiovascular issues, and exacerbation of asthma symptoms. Fine particulate matter, in particular, can penetrate deep into the lungs and even enter the bloodstream, causing systemic health effects.</div>
         </div>
-        <div class="box">
-            <img src="{% static 'images/car/cars_in_city3.jpg' %}" alt="Car pollution image">
+        <div class="box" typeof="EnvironmentalImpact">
+            <img src="{% static 'images/car/cars_in_city3.jpg' %}" alt="Car pollution image" property="image">
             <div class="text text-a">Environmental Impact</div>
-            <div class="text text-b">Car pollution contributes to environmental degradation in several ways.
-                It is a major contributor to smog formation, which reduces visibility and can harm ecosystems.
-                Additionally, vehicle emissions release greenhouse gases that contribute to climate change and global warming.
-            </div>
+            <div class="text text-b" property="impactDescription">Car pollution contributes to environmental degradation in several ways. It is a major contributor to smog formation, which reduces visibility and can harm ecosystems. Additionally, vehicle emissions release greenhouse gases that contribute to climate change and global warming.</div>
         </div>
-        <div class="box">
-            <img src="{% static 'images/car/cars_in_city4.jpg' %}" alt="Car pollution image">
+        <div class="box" typeof="RegulationsAndControl">
+            <img src="{% static 'images/car/cars_in_city4.jpg' %}" alt="Car pollution image" property="image">
             <div class="text text-a">Regulations and Control Measures</div>
-            <div class="text text-b">Governments around the world have implemented regulations and control measures to mitigate car pollution. 
-                These include emission standards for vehicles, such as Euro standards in Europe and EPA regulations in the United States, 
-                as well as initiatives to promote cleaner fuels and alternative transportation methods like public transit and electric vehicles.
-            </div>
+            <div class="text text-b" property="measuresDescription">Governments around the world have implemented regulations and control measures to mitigate car pollution. These include emission standards for vehicles, such as Euro standards in Europe and EPA regulations in the United States, as well as initiatives to promote cleaner fuels and alternative transportation methods like public transit and electric vehicles.</div>
         </div>
-        <div class="box">
-            <img src="{% static 'images/car/cars_in_city5.jpg' %}" alt="Car pollution image">
+        <div class="box" typeof="TechnologicalSolutions">
+            <img src="{% static 'images/car/cars_in_city5.jpg' %}" alt="Car pollution image" property="image">
             <div class="text text-a">Technological Solutions</div>
-            <div class="text text-b">Advancements in automotive technology, such as the development of catalytic converters, 
-                diesel particulate filters, and hybrid or electric vehicles, have helped reduce car pollution. However, 
-                widespread adoption of cleaner technologies is still needed to significantly decrease the environmental impact of transportation.
-            </div>
+            <div class="text text-b" property="solutionsDescription">Advancements in automotive technology, such as the development of catalytic converters, diesel particulate filters, and hybrid or electric vehicles, have helped reduce car pollution. However, widespread adoption of cleaner technologies is still needed to significantly decrease the environmental impact of transportation.</div>
         </div>
-        <div class="box">
-            <img src="{% static 'images/car/car_pollution_1.jpg' %}" alt="Car pollution image">
+        <div class="box" typeof="PublicAwareness">
+            <img src="{% static 'images/car/car_pollution_1.jpg' %}" alt="Car pollution image" property="image">
             <div class="text text-a">Public Awareness and Behavior Change</div>
-            <div class="text text-b">Education and awareness campaigns can also play a crucial role in reducing car pollution. 
-                Encouraging individuals to use more sustainable transportation options, carpool, 
-                maintain their vehicles properly, and drive more fuel-efficiently can all help mitigate the negative effects of car pollution.
-            </div>
+            <div class="text text-b" property="awarenessDescription">Education and awareness campaigns can also play a crucial role in reducing car pollution. Encouraging individuals to use more sustainable transportation options, carpool, maintain their vehicles properly, and drive more fuel-efficiently can all help mitigate the negative effects of car pollution.</div>
         </div>
     </div>
 </body>
