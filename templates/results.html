@@ -101,12 +101,13 @@
     function addRow(trip, index) {
         const resultContainer = document.getElementById('result-container');
         const newRow = document.createElement('tr');
+        newRow.setAttribute('typeof', 'schema:Trip');
         newRow.innerHTML = `
-            <td>${trip.transportType || "N/A"}</td>
-            <td>${trip.passengers || "N/A"}</td>
-            <td>${trip.departurePoint || "N/A"}</td>
-            <td>${trip.arrivalPoint || "N/A"}</td>
-            <td>${trip.carbonEmission || "N/A"} grams</td>
+            <td property="schema:vehicle">${trip.transportType || "N/A"}</td>
+            <td property="schema:passengerCount">${trip.passengers || "N/A"}</td>
+            <td property="schema:fromLocation">${trip.departurePoint || "N/A"}</td>
+            <td property="schema:toLocation">${trip.arrivalPoint || "N/A"}</td>
+            <td property="schema:emissionsCO2">${trip.carbonEmission || "N/A"} grams</td>
             <td>
                 <button class="btn btn-edit" onclick="editRow(this, ${index})">Edit</button>
                 <button class="btn btn-delete" onclick="deleteRow(this, ${index})">Delete</button>
