@@ -19,6 +19,20 @@
                         </tr>
                     </thead>
                     <tbody id="result-container">
+                        {% for trip in trips %}
+                        <tr typeof="Trip">
+                            <td property="vehicle">{{ trip.transportType }}</td>
+                            <td property="passengerCount">{{ trip.passengers }}</td>
+                            <td property="fromLocation">{{ trip.departurePoint }}</td>
+                            <td property="toLocation">{{ trip.arrivalPoint }}</td>
+                            <td property="emissionsCO2">{{ trip.carbonEmission }} grams</td>
+                            <td>
+                                <button class="btn btn-edit" onclick="editRow(this, {{ forloop.counter0 }})">Edit</button>
+                                <button class="btn btn-delete" onclick="deleteRow(this, {{ forloop.counter0 }})">Delete</button>
+                                <button class="btn btn-save" onclick="saveRow(this, {{ forloop.counter0 }})" style="display: none;">Save</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -92,7 +106,6 @@
         background-color: #dc3545;
         color: white;
     }
-
 </style>
 
 <script>
@@ -101,13 +114,13 @@
     function addRow(trip, index) {
         const resultContainer = document.getElementById('result-container');
         const newRow = document.createElement('tr');
-        newRow.setAttribute('typeof', 'schema:Trip');
+        newRow.setAttribute('typeof', 'Trip');
         newRow.innerHTML = `
-            <td property="schema:vehicle">${trip.transportType || "N/A"}</td>
-            <td property="schema:passengerCount">${trip.passengers || "N/A"}</td>
-            <td property="schema:fromLocation">${trip.departurePoint || "N/A"}</td>
-            <td property="schema:toLocation">${trip.arrivalPoint || "N/A"}</td>
-            <td property="schema:emissionsCO2">${trip.carbonEmission || "N/A"} grams</td>
+            <td property="vehicle">${trip.transportType || "N/A"}</td>
+            <td property="passengerCount">${trip.passengers || "N/A"}</td>
+            <td property="fromLocation">${trip.departurePoint || "N/A"}</td>
+            <td property="toLocation">${trip.arrivalPoint || "N/A"}</td>
+            <td property="emissionsCO2">${trip.carbonEmission || "N/A"} grams</td>
             <td>
                 <button class="btn btn-edit" onclick="editRow(this, ${index})">Edit</button>
                 <button class="btn btn-delete" onclick="deleteRow(this, ${index})">Delete</button>
