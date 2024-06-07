@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block content %}
-<div class="login-container">
-    <div class="card mt-5 login-card">
-        <div class="card-body">
-            <h2 class="card-title text-center">Your Pollution Information</h2>
-            <div class="results-container">
-                <table class="styled-table">
-                    <thead>
+    <div class="login-container">
+        <div class="card mt-5 login-card">
+            <div class="card-body">
+                <h2 class="card-title text-center">Your Pollution Information</h2>
+                <div class="results-container">
+                    <table class="styled-table">
+                        <thead>
                         <tr>
                             <th>Transport Type</th>
                             <th>Passengers</th>
@@ -17,170 +17,188 @@
                             <th>CO2 Emissions</th>
                             <th>Actions</th>
                         </tr>
-                    </thead>
-                    <tbody id="result-container">
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="result-container">
+                        {% for trip in trips %}
+                            <div vocab="http://schema.org/" typeof="Flight">
+                                <span property="vehicle">{{ trip.transportType }}</span>,
+                                <span property="passengerCount">{{ trip.passengers }}</span> passengers,
+                                <span property="fromLocation">{{ trip.departurePoint }}</span> to
+                                <span property="toLocation">{{ trip.arrivalPoint }}</span>,
+                                <span property="emissionsCO2">{{ trip.carbonEmission }} grams</span>
+                                <div>
+                                    <button class="btn btn-edit" onclick="editRow(this, {{ forloop.counter0 }})">Edit
+                                    </button>
+                                    <button class="btn btn-delete" onclick="deleteRow(this, {{ forloop.counter0 }})">
+                                        Delete
+                                    </button>
+                                    <button class="btn btn-save" onclick="saveRow(this, {{ forloop.counter0 }})"
+                                            style="display: none;">Save
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<style>
-    .styled-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 25px 0;
-        font-size: 18px;
-        text-align: left;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    }
+    <style>
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
 
-    .styled-table thead tr {
-        background-color: #4e4e88;
-        color: #ffffff;
-        text-align: left;
-    }
+        .styled-table thead tr {
+            background-color: #4e4e88;
+            color: #ffffff;
+            text-align: left;
+        }
 
-    .styled-table th,
-    .styled-table td {
-        padding: 12px 15px;
-    }
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
 
-    .styled-table tbody tr {
-        border-bottom: 1px solid #dddddd;
-    }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
 
-    .styled-table tbody tr:nth-of-type(even) {
-        background-color: #f3f3f3;
-    }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
 
-    .styled-table tbody tr:last-of-type {
-        border-bottom: 2px solid #4e4e88;
-    }
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #4e4e88;
+        }
 
-    .styled-table tbody tr.active-row {
-        font-weight: bold;
-        color: #4e4e88;
-    }
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #4e4e88;
+        }
 
-    .buttons-container {
-        text-align: center;
-        margin-top: 20px;
-    }
+        .buttons-container {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-    .btn {
-        padding: 5px 10px;
-        font-size: 14px;
-        margin: 2px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-    }
+        .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            margin: 2px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-    .btn-edit {
-        background-color: #ffc107;
-        color: white;
-    }
+        .btn-edit {
+            background-color: #ffc107;
+            color: white;
+        }
 
-    .btn-save {
-        background-color: #28a745;
-        color: white;
-    }
+        .btn-save {
+            background-color: #28a745;
+            color: white;
+        }
 
-    .btn-delete {
-        background-color: #dc3545;
-        color: white;
-    }
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+    </style>
 
-</style>
+    <script>
+        const trips = JSON.parse(localStorage.getItem('trips')) || [];
 
-<script>
-    const trips = JSON.parse(localStorage.getItem('trips')) || [];
-
-    function addRow(trip, index) {
-        const resultContainer = document.getElementById('result-container');
-        const newRow = document.createElement('tr');
-        newRow.setAttribute('typeof', 'schema:Trip');
-        newRow.innerHTML = `
-            <td property="schema:vehicle">${trip.transportType || "N/A"}</td>
-            <td property="schema:passengerCount">${trip.passengers || "N/A"}</td>
-            <td property="schema:fromLocation">${trip.departurePoint || "N/A"}</td>
-            <td property="schema:toLocation">${trip.arrivalPoint || "N/A"}</td>
-            <td property="schema:emissionsCO2">${trip.carbonEmission || "N/A"} grams</td>
+        function addRow(trip, index) {
+            const resultContainer = document.getElementById('result-container');
+            const newRow = document.createElement('tr');
+            newRow.setAttribute('typeof', 'Trip');
+            newRow.innerHTML = `
+            <td property="vehicle">${trip.transportType || "N/A"}</td>
+            <td property="passengerCount">${trip.passengers || "N/A"}</td>
+            <td property="fromLocation">${trip.departurePoint || "N/A"}</td>
+            <td property="toLocation">${trip.arrivalPoint || "N/A"}</td>
+            <td property="emissionsCO2">${trip.carbonEmission || "N/A"} grams</td>
             <td>
                 <button class="btn btn-edit" onclick="editRow(this, ${index})">Edit</button>
                 <button class="btn btn-delete" onclick="deleteRow(this, ${index})">Delete</button>
                 <button class="btn btn-save" onclick="saveRow(this, ${index})" style="display: none;">Save</button>
             </td>
         `;
-        resultContainer.appendChild(newRow);
-    }
+            resultContainer.appendChild(newRow);
+        }
 
-    function editRow(button, index) {
-        const row = button.closest('tr');
-        const cells = row.querySelectorAll('td');
+        function editRow(button, index) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('td');
 
-        cells[0].innerHTML = `<input type="text" value="${cells[0].innerText}">`;
-        cells[1].innerHTML = `<input type="number" value="${cells[1].innerText}">`;
-        cells[2].innerHTML = `<input type="text" value="${cells[2].innerText}">`;
-        cells[3].innerHTML = `<input type="text" value="${cells[3].innerText}">`;
-        cells[4].innerHTML = `${cells[4].innerText.replace(' grams', '')}<input type="hidden" value="${cells[4].innerText.replace(' grams', '')}">`;
+            cells[0].innerHTML = `<input type="text" value="${cells[0].innerText}">`;
+            cells[1].innerHTML = `<input type="number" value="${cells[1].innerText}">`;
+            cells[2].innerHTML = `<input type="text" value="${cells[2].innerText}">`;
+            cells[3].innerHTML = `<input type="text" value="${cells[3].innerText}">`;
+            cells[4].innerHTML = `${cells[4].innerText.replace(' grams', '')}<input type="hidden" value="${cells[4].innerText.replace(' grams', '')}">`;
 
-        button.style.display = 'none';
-        button.nextElementSibling.style.display = 'none';
-        button.nextElementSibling.nextElementSibling.style.display = 'inline-block';
-    }
+            button.style.display = 'none';
+            button.nextElementSibling.style.display = 'none';
+            button.nextElementSibling.nextElementSibling.style.display = 'inline-block';
+        }
 
-    function saveRow(button, index) {
-        const row = button.closest('tr');
-        const cells = row.querySelectorAll('td');
+        function saveRow(button, index) {
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('td');
 
-        const transportTypeInput = cells[0].querySelector('input').value;
-        const passengersInput = cells[1].querySelector('input').value;
-        const departurePointInput = cells[2].querySelector('input').value;
-        const arrivalPointInput = cells[3].querySelector('input').value;
-        const carbonEmissionInput = cells[4].querySelector('input').value;
+            const transportTypeInput = cells[0].querySelector('input').value;
+            const passengersInput = cells[1].querySelector('input').value;
+            const departurePointInput = cells[2].querySelector('input').value;
+            const arrivalPointInput = cells[3].querySelector('input').value;
+            const carbonEmissionInput = cells[4].querySelector('input').value;
 
-        cells[0].innerText = transportTypeInput;
-        cells[1].innerText = passengersInput;
-        cells[2].innerText = departurePointInput;
-        cells[3].innerText = arrivalPointInput;
-        cells[4].innerText = carbonEmissionInput + " grams";
+            cells[0].innerText = transportTypeInput;
+            cells[1].innerText = passengersInput;
+            cells[2].innerText = departurePointInput;
+            cells[3].innerText = arrivalPointInput;
+            cells[4].innerText = carbonEmissionInput + " grams";
 
-        button.style.display = 'none';
-        button.previousElementSibling.style.display = 'inline-block';
-        button.previousElementSibling.previousElementSibling.style.display = 'inline-block';
+            button.style.display = 'none';
+            button.previousElementSibling.style.display = 'inline-block';
+            button.previousElementSibling.previousElementSibling.style.display = 'inline-block';
 
-        const trips = JSON.parse(localStorage.getItem('trips')) || [];
-        trips[index] = {
-            transportType: transportTypeInput,
-            passengers: passengersInput,
-            departurePoint: departurePointInput,
-            arrivalPoint: arrivalPointInput,
-            carbonEmission: carbonEmissionInput
-        };
-        localStorage.setItem('trips', JSON.stringify(trips));
-    }
+            const trips = JSON.parse(localStorage.getItem('trips')) || [];
+            trips[index] = {
+                transportType: transportTypeInput,
+                passengers: passengersInput,
+                departurePoint: departurePointInput,
+                arrivalPoint: arrivalPointInput,
+                carbonEmission: carbonEmissionInput
+            };
+            localStorage.setItem('trips', JSON.stringify(trips));
+        }
 
-    function deleteRow(button, index) {
-        const row = button.closest('tr');
-        row.remove();
+        function deleteRow(button, index) {
+            const row = button.closest('tr');
+            row.remove();
 
-        const trips = JSON.parse(localStorage.getItem('trips')) || [];
-        trips.splice(index, 1);
-        localStorage.setItem('trips', JSON.stringify(trips));
-    }
+            const trips = JSON.parse(localStorage.getItem('trips')) || [];
+            trips.splice(index, 1);
+            localStorage.setItem('trips', JSON.stringify(trips));
+        }
 
-    function clearLocalStorage() {
-        localStorage.removeItem('trips');
+        function clearLocalStorage() {
+            localStorage.removeItem('trips');
 
-        const resultContainer = document.getElementById('result-container');
-        resultContainer.innerHTML = '';
-    }
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.innerHTML = '';
+        }
 
-    trips.forEach((trip, index) => {
-        addRow(trip, index);
-    });
-</script>
+        trips.forEach((trip, index) => {
+            addRow(trip, index);
+        });
+    </script>
 {% endblock %}
