@@ -4,97 +4,97 @@
 {% block title %}Calculate Pollution{% endblock %}
 
 {% block content %}
-    <div class="trip-form-container">
-        <div class="card mt-5 trip-form-card">
+    <div class="trip-form-container" typeof="WebPage">
+        <div class="card mt-5 trip-form-card" property="mainContentOfPage">
             <div class="card-body">
-                <h2 class="card-title text-center">Trip Form</h2>
-                <form class="trip-form" action="{% url 'calculate' %}" method="POST" id="trip-form">
+                <h2 class="card-title text-center" property="headline">Trip Form</h2>
+                <form class="trip-form" action="{% url 'calculate' %}" method="POST" id="trip-form" typeof="Action">
                     {% csrf_token %}
                     <label for="transport_type">Transport Type:</label><br>
-                    <select name="transport_type" id="transport_type">
+                    <select name="transport_type" id="transport_type" property="transportType">
                         <option value="plane" selected>Plane</option>
                     </select><br><br>
 
-                    <div id="flight-details">
+                    <div id="flight-details" typeof="Trip" style="display:block;">
                         <label for="departure_point">Departure Airport (IATA code):</label><br>
-                        <input type="text" id="departure" name="departure_point"><br><br>
+                        <input type="text" id="departure" name="departure_point" property="departureAirport"><br><br>
 
                         <label for="arrival_point">Arrival Airport (IATA code):</label><br>
-                        <input type="text" id="arrival" name="arrival_point"><br><br>
+                        <input type="text" id="arrival" name="arrival_point" property="arrivalAirport"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="passengers" name="passengers"><br><br>
+                        <input type="number" id="passengers" name="passengers" property="numberOfPassengers"><br><br>
                     </div>
 
-                    <div id="car-details" style="display:none;">
+                    <div id="car-details" typeof="Trip" style="display:none;">
                         <label for="departure_point">Departure Point:</label><br>
-                        <input type="text" id="dep" name="departure_point"><br><br>
+                        <input type="text" id="dep" name="departure_point" property="departurePoint"><br><br>
 
                         <label for="arrival_point">Arrival Point:</label><br>
-                        <input type="text" id="arrival_point" name="arrival_point"><br><br>
+                        <input type="text" id="arrival_point" name="arrival_point" property="arrivalPoint"><br><br>
 
                         <label for="distance">Distance Travelled (in kilometers):</label><br>
-                        <input type="number" id="distance" name="distance"><br><br>
+                        <input type="number" id="distance" name="distance" property="distanceTravelled"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="passenger" name="passengers"><br><br>
+                        <input type="number" id="passenger" name="passengers" property="numberOfPassengers"><br><br>
                     </div>
 
-                    <div id="train-details" style="display:none;">
+                    <div id="train-details" typeof="Trip" style="display:none;">
                         <label for="departure_point">Departure Station:</label><br>
-                        <input type="text" id="depart" name="departure_point"><br><br>
+                        <input type="text" id="depart" name="departure_point" property="departureStation"><br><br>
 
                         <label for="arrival_point">Arrival Station:</label><br>
-                        <input type="text" id="arr" name="arrival_point"><br><br>
+                        <input type="text" id="arr" name="arrival_point" property="arrivalStation"><br><br>
 
                         <label for="departure_time">Departure Time:</label><br>
-                        <input type="time" id="departure_time" name="departure_time"><br><br>
+                        <input type="time" id="departure_time" name="departure_time" property="departureTime"><br><br>
 
                         <label for="arrival_time">Arrival Time:</label><br>
-                        <input type="time" id="arrival_time" name="arrival_time"><br><br>
+                        <input type="time" id="arrival_time" name="arrival_time" property="arrivalTime"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="pass" name="passengers"><br><br>
+                        <input type="number" id="pass" name="passengers" property="numberOfPassengers"><br><br>
                     </div>
 
-                    <div id="subway-details" style="display:none;">
+                    <div id="subway-details" typeof="Trip" style="display:none;">
                         <label for="departure_point">Departure Station:</label><br>
-                        <input type="text" id="depar" name="departure_point"><br><br>
+                        <input type="text" id="depar" name="departure_point" property="departureStation"><br><br>
 
                         <label for="arrival_point">Arrival Station:</label><br>
-                        <input type="text" id="arrival_p" name="arrival_point"><br><br>
+                        <input type="text" id="arrival_p" name="arrival_point" property="arrivalStation"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="passeng" name="passengers"><br><br>
+                        <input type="number" id="passeng" name="passengers" property="numberOfPassengers"><br><br>
                     </div>
 
-                    <div id="motorbike-details" style="display:none;">
+                    <div id="motorbike-details" typeof="Trip" style="display:none;">
                         <label for="distance">Distance Travelled (in kilometers):</label><br>
-                        <input type="number" id="dist" name="distance"><br><br>
+                        <input type="number" id="dist" name="distance" property="distanceTravelled"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="p" name="passengers"><br><br>
+                        <input type="number" id="p" name="passengers" property="numberOfPassengers"><br><br>
                     </div>
 
-                    <div id="boat-details" style="display:none;">
+                    <div id="boat-details" typeof="Trip" style="display:none;">
                         <label for="departure_point">Departure Port:</label><br>
-                        <input type="text" id="departure_point" name="departure_point"><br><br>
+                        <input type="text" id="departure_point" name="departure_point" property="departurePort"><br><br>
 
                         <label for="arrival_point">Arrival Port:</label><br>
-                        <input type="text" id="a_p" name="arrival_point"><br><br>
+                        <input type="text" id="a_p" name="arrival_point" property="arrivalPort"><br><br>
 
                         <label for="passengers">Number of Passengers:</label><br>
-                        <input type="number" id="pssg" name="passengers"><br><br>
+                        <input type="number" id="pssg" name="passengers" property="numberOfPassengers"><br><br>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Calculate</button>
+                        <button type="submit" class="btn btn-primary" property="submit">Calculate</button>
                     </div>
                 </form>
             </div>
-            <div id="result-container-plain" class="mt-4"></div>
-            <div id="save-button-container" class="text-center" style="display:none;">
-                <a id="saveTrip" href="../results" class="btn btn-primary">Save Trip</a>
+            <div id="result-container-plain" class="mt-4" property="resultContainer"></div>
+            <div id="save-button-container" class="text-center" style="display:none;" property="saveButtonContainer">
+                <a id="saveTrip" href="../results" class="btn btn-primary" property="saveTrip">Save Trip</a>
             </div>
         </div>
     </div>
