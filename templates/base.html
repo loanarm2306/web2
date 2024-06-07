@@ -1,4 +1,4 @@
-{{% load static %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en" vocab="http://schema.org/" typeof="WebPage">
@@ -12,9 +12,9 @@
     <div class="logo">
         <img src="{% static 'images/icons/logo_plane.png' %}" alt="Logo" property="image">
     </div>
-    <div class="nav-links">
+    <div class="nav-links" property="url">
         <a href="../#" property="url">Home</a>
-        <div class="dropdown">
+        <div class="dropdown" property="url">
             <button id="transports_btn" class="dropbtn" property="name">Transports</button>
             <div class="dropdown-content">
                 <a href="../plane" property="url">Plane</a>
@@ -26,26 +26,26 @@
             </div>
         </div>
         {% if user.is_authenticated %}
-            <a href="{% url 'calculate' %}" method="POST">
+            <a href="{% url 'calculate' %}" method="POST" property="url">
                 {% csrf_token %}
                 <button id="calculate_pollution" property="name">Calculate Pollution</button>
             </a>
-            <a href="{% url 'results' %}" method="POST">
+            <a href="{% url 'results' %}" method="POST" property="url">
                 {% csrf_token %}
                 <button id="results" property="name">Your Space</button>
             </a>
         {% endif %}
     </div>
-    <div id="div_login_logout">
+    <div id="div_login_logout" property="url">
         {% if user.is_authenticated %}
         <div class="logout">
-            <form action="{% url 'logout' %}" method="post">
+            <form action="{% url 'logout' %}" method="post" property="url">
               {% csrf_token %}
               <button id="logout_btn" type="submit" property="url"><img id="image_logout" src="{% static 'images/icons/icon-logout.png' %}" alt="Logout"></button>
             </form>
         </div>
         {% else %}
-        <div class="login">
+        <div class="login" property="url">
             <a href="{% url 'login' %}" property="url"><img id="image_login" src="{% static 'images/icons/icon-user.png' %}" alt="Login"></a>
         </div>
         {% endif %}
